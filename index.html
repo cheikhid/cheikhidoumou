@@ -2,39 +2,104 @@
 <html lang="fr">
 
 <head>
+    <!-- Meta Tags Essentiels -->
     <meta charset="utf-8">
-    <title>Cheikh Idoumou - Portfolio Créatif</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Développeur Backend, Python, Java, .NET" name="keywords">
-    <meta content="Portfolio créatif de Cheikh Idoumou" name="description">
-
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO Optimisé -->
+    <title>Cheikh Idoumou | Développeur Backend Expert Python, Django, Spring Boot & .NET</title>
+    <meta name="description" content="Portfolio de Cheikh Idoumou, ingénieur logiciel spécialisé en développement backend avec expertise en Python, Django, Spring Boot, .NET et DevOps. 5+ ans d'expérience en Mauritanie.">
+    <meta name="keywords" content="Cheikh Idoumou, Développeur Backend, Python, Django, Spring Boot, Java, .NET, DevOps, Docker, Kubernetes, Mauritanie, Nouakchott">
+    <meta name="author" content="Cheikh Idoumou">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://votre-domaine.com/">
+    
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Cheikh Idoumou | Développeur Backend Expert">
+    <meta property="og:description" content="Ingénieur logiciel spécialisé en Python, Django, Spring Boot et .NET avec 5+ ans d'expérience">
+    <meta property="og:image" content="img/chkidprof.jpeg">
+    <meta property="og:url" content="https://votre-domaine.com/">
+    <meta property="og:site_name" content="Cheikh Idoumou Portfolio">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cheikh Idoumou | Développeur Backend Expert">
+    <meta name="twitter:description" content="Portfolio de développeur backend spécialisé en Python, Django, Spring Boot et .NET">
+    <meta name="twitter:image" content="img/chkidprof.jpeg">
+    
+    <!-- Favicon Complet -->
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0a0e27">
+    <meta name="msapplication-TileColor" content="#bd9f67">
+    
+    <!-- Google Web Fonts (Optimisé) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
+    
+    <!-- Font Awesome (CDN avec SRI) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
     <!-- Custom Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="img/chkidprof.jpeg" as="image">
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Cheikh Idoumou",
+        "jobTitle": "Développeur Backend Senior",
+        "url": "https://votre-domaine.com",
+        "image": "img/chkidprof.jpeg",
+        "sameAs": [
+            "https://www.linkedin.com/in/cheikh-idoumou-96a174269",
+            "https://facebook.com/cheikh.id",
+            "https://wa.me/+22242425143"
+        ],
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Nouakchott",
+            "addressCountry": "MR"
+        },
+        "email": "Cheiikh.id65@gmail.com",
+        "telephone": "+22232425143",
+        "knowsAbout": ["Python", "Django", "Spring Boot", "Java", ".NET", "Docker", "Kubernetes", "DevOps"],
+        "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "Université libanaise internationale"
+        }
+    }
+    </script>
 </head>
 
 <body>
-    <!-- Cursor -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
+    <!-- Skip to Main Content (Accessibilité) -->
+    <a href="#main-content" class="skip-link" aria-label="Aller au contenu principal">Passer au contenu</a>
+    
+    <!-- Cursor personnalisé -->
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-outline" aria-hidden="true"></div>
 
     <!-- Particles Background -->
-    <div class="particles-container" id="particles"></div>
+    <div class="particles-container" id="particles" aria-hidden="true"></div>
 
-    <!-- Loader -->
-    <div class="creative-loader">
+    <!-- Loader amélioré -->
+    <div class="creative-loader" role="status" aria-label="Chargement du portfolio">
         <div class="loader-content">
-            <div class="loader-text">
+            <div class="loader-text" aria-hidden="true">
                 <span>C</span>
                 <span>H</span>
                 <span>E</span>
@@ -45,594 +110,661 @@
             <div class="loader-progress">
                 <div class="loader-bar"></div>
             </div>
+            <span class="sr-only">Chargement en cours...</span>
         </div>
     </div>
 
-    <!-- Floating Navigation -->
-    <nav class="floating-nav">
+    <!-- Floating Navigation avec accessibilité -->
+    <nav class="floating-nav" aria-label="Navigation secondaire" role="navigation">
         <div class="nav-items">
-            <a href="#hero" class="nav-dot active" data-tooltip="Accueil">
-                <span class="dot"></span>
+            <a href="#hero" class="nav-dot active" data-tooltip="Accueil" aria-label="Aller à l'accueil">
+                <span class="dot" aria-hidden="true"></span>
             </a>
-            <a href="#about" class="nav-dot" data-tooltip="À propos">
-                <span class="dot"></span>
+            <a href="#about" class="nav-dot" data-tooltip="À propos" aria-label="Aller à la section à propos">
+                <span class="dot" aria-hidden="true"></span>
             </a>
-            <a href="#skills" class="nav-dot" data-tooltip="Compétences">
-                <span class="dot"></span>
+            <a href="#skills" class="nav-dot" data-tooltip="Compétences" aria-label="Aller à la section compétences">
+                <span class="dot" aria-hidden="true"></span>
             </a>
-            <a href="#services" class="nav-dot" data-tooltip="Services">
-                <span class="dot"></span>
+            <a href="#services" class="nav-dot" data-tooltip="Services" aria-label="Aller à la section services">
+                <span class="dot" aria-hidden="true"></span>
             </a>
-            <a href="#projects" class="nav-dot" data-tooltip="Projets">
-                <span class="dot"></span>
+            <a href="#projects" class="nav-dot" data-tooltip="Projets" aria-label="Aller à la section projets">
+                <span class="dot" aria-hidden="true"></span>
             </a>
-            <a href="#contact" class="nav-dot" data-tooltip="Contact">
-                <span class="dot"></span>
+            <a href="#contact" class="nav-dot" data-tooltip="Contact" aria-label="Aller à la section contact">
+                <span class="dot" aria-hidden="true"></span>
             </a>
         </div>
     </nav>
 
-    <!-- Hero Section - Holographic Card Design -->
-    <section id="hero" class="hero-creative">
-        <div class="hero-container">
-            <div class="holographic-card">
-                <div class="card-glow"></div>
-                <div class="card-content">
-                    <div class="profile-section">
-                        <div class="profile-frame">
-                            <div class="frame-border"></div>
-                            <img src="img/chkidprof.jpeg" alt="Cheikh Idoumou" class="profile-img">
-                            <div class="scan-line"></div>
+    <!-- Menu Mobile -->
+    <button class="mobile-menu-toggle" aria-label="Menu de navigation" aria-expanded="false" aria-controls="mobile-navigation">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </button>
+
+    <nav id="mobile-navigation" class="mobile-nav" aria-label="Navigation mobile">
+        <div class="mobile-nav-content">
+            <button class="mobile-nav-close" aria-label="Fermer le menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <ul class="mobile-nav-list">
+                <li><a href="#hero">Accueil</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#skills">Compétences</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-social">
+                <a href="https://wa.me/+22242425143" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://facebook.com/cheikh.id" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/cheikh-idoumou-96a174269" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Main Content -->
+    <main id="main-content">
+        <section id="hero" class="hero-creative" aria-labelledby="hero-title">
+            <div class="hero-container">
+                <article class="holographic-card">
+                    <div class="card-glow" aria-hidden="true"></div>
+                    <div class="card-content">
+                        <div class="profile-section">
+                            <div class="profile-frame">
+                                <div class="frame-border" aria-hidden="true"></div>
+                                <img src="img/chkidprof.jpeg" alt="Portrait professionnel de Cheikh Idoumou, développeur backend" class="profile-img" loading="eager" width="350" height="350">
+                                <div class="scan-line" aria-hidden="true"></div>
+                            </div>
+                            <div class="status-badge" role="status">
+                                <span class="status-dot" aria-hidden="true"></span>
+                                <span class="status-text">Disponible pour projets</span>
+                            </div>
                         </div>
-                        <div class="status-badge">
-                            <span class="status-dot"></span>
-                            <span class="status-text">Disponible</span>
+                        <div class="info-section">
+                            <h1 id="hero-title" class="glitch-text" data-text="CHEIKH IDOUMOU">CHEIKH IDOUMOU</h1>
+                            <div class="role-wrapper">
+                                <div class="role-line" aria-hidden="true"></div>
+                                <h2 class="animated-role" aria-live="polite"></h2>
+                                <div class="role-line" aria-hidden="true"></div>
+                            </div>
+                            <p class="bio-text">
+                                Ingénieur logiciel passionné spécialisé en développement backend avec expertise en Django, Spring Boot et .NET. Je transforme des idées complexes en solutions robustes et scalables.
+                            </p>
+                            <div class="stats-mini" role="list" aria-label="Statistiques professionnelles">
+                                <div class="stat-item" role="listitem">
+                                    <span class="stat-value" data-target="5">5+</span>
+                                    <span class="stat-label">Années d'expérience</span>
+                                </div>
+                                <div class="stat-divider" aria-hidden="true"></div>
+                                <div class="stat-item" role="listitem">
+                                    <span class="stat-value" data-target="20">20+</span>
+                                    <span class="stat-label">Projets réalisés</span>
+                                </div>
+                                <div class="stat-divider" aria-hidden="true"></div>
+                                <div class="stat-item" role="listitem">
+                                    <span class="stat-value" data-target="100">100%</span>
+                                    <span class="stat-label">Engagement qualité</span>
+                                </div>
+                            </div>
+                            <div class="cta-buttons">
+                                <a href="Cheikh_IdoumouCV2.pdf" class="btn-holographic" download aria-label="Télécharger mon CV en PDF">
+                                    <span class="btn-text"><i class="fas fa-download"></i> Télécharger CV</span>
+                                    <span class="btn-shine" aria-hidden="true"></span>
+                                </a>
+                                <a href="#contact" class="btn-outline" aria-label="Me contacter">
+                                    <span class="btn-text">Me contacter</span>
+                                    <span class="btn-arrows" aria-hidden="true">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                    <div class="info-section">
-                        <div class="glitch-text" data-text="CHEIKH IDOUMOU">CHEIKH IDOUMOU</div>
-                        <div class="role-wrapper">
-                            <div class="role-line"></div>
-                            <h2 class="animated-role"></h2>
-                            <div class="role-line"></div>
+                    <div class="card-reflection" aria-hidden="true"></div>
+                </article>
+            </div>
+        </section>
+
+        <!-- About Section avec amélioration sémantique -->
+        <section id="about" class="about-creative" aria-labelledby="about-title">
+            <div class="container">
+                <header class="section-title-creative">
+                    <span class="title-number" aria-hidden="true">01</span>
+                    <h2 id="about-title" class="title-text">À Propos de Moi</h2>
+                    <div class="title-line" aria-hidden="true"></div>
+                </header>
+                
+                <div class="about-grid" role="list">
+                    <article class="about-card-3d" role="listitem">
+                        <div class="card-3d-inner">
+                            <div class="card-3d-front">
+                                <div class="front-content">
+                                    <i class="fas fa-user-astronaut" aria-hidden="true"></i>
+                                    <h3>Qui suis-je ?</h3>
+                                    <p>Survolez pour découvrir mon parcours</p>
+                                </div>
+                            </div>
+                            <div class="card-3d-back">
+                                <div class="back-content">
+                                    <h3>Mon Parcours</h3>
+                                    <p>Ingénieur logiciel avec 5+ années d'expérience dans le développement backend. Passionné par l'architecture logicielle, je crée des solutions innovantes qui résolvent des problèmes complexes avec élégance et efficacité.</p>
+                                    <div class="card-badge">Master en Sciences Informatiques</div>
+                                </div>
+                            </div>
                         </div>
-                        <p class="bio-text">
-                            Développeur Backend passionné | Expert en Django, Spring Boot & .NET
-                        </p>
-                        <div class="stats-mini">
-                            <div class="stat-item">
-                                <span class="stat-value">5+</span>
-                                <span class="stat-label">Ans</span>
+                    </article>
+
+                    <article class="about-card-3d" role="listitem">
+                        <div class="card-3d-inner">
+                            <div class="card-3d-front">
+                                <div class="front-content">
+                                    <i class="fas fa-rocket" aria-hidden="true"></i>
+                                    <h3>Ma Mission</h3>
+                                    <p>Survolez pour découvrir mes objectifs</p>
+                                </div>
                             </div>
-                            <div class="stat-divider"></div>
-                            <div class="stat-item">
-                                <span class="stat-value">20+</span>
-                                <span class="stat-label">Projets</span>
-                            </div>
-                            <div class="stat-divider"></div>
-                            <div class="stat-item">
-                                <span class="stat-value">100%</span>
-                                <span class="stat-label">Qualité</span>
+                            <div class="card-3d-back">
+                                <div class="back-content">
+                                    <h3>Mon Objectif</h3>
+                                    <p>Concevoir et développer des applications backend robustes et scalables qui transforment les défis techniques en opportunités d'innovation. Je vise l'excellence technique tout en maintenant une approche pragmatique.</p>
+                                    <div class="card-badge">Innovation & Performance</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="cta-buttons">
-                            <a href="Cheikh_IdoumouCV2.pdf" class="btn-holographic">
-                                <span class="btn-text">Télécharger CV</span>
-                                <span class="btn-shine"></span>
+                    </article>
+
+                    <article class="about-card-3d" role="listitem">
+                        <div class="card-3d-inner">
+                            <div class="card-3d-front">
+                                <div class="front-content">
+                                    <i class="fas fa-brain" aria-hidden="true"></i>
+                                    <h3>Mon Approche</h3>
+                                    <p>Survolez pour découvrir ma méthodologie</p>
+                                </div>
+                            </div>
+                            <div class="card-3d-back">
+                                <div class="back-content">
+                                    <h3>Ma Méthodologie</h3>
+                                    <p>Clean Code, tests rigoureux, documentation claire et amélioration continue sont les piliers de ma pratique. J'applique les principes SOLID et les design patterns pour garantir la maintenabilité du code.</p>
+                                    <div class="card-badge">Clean Architecture</div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section optimisée -->
+        <section id="skills" class="skills-creative" aria-labelledby="skills-title">
+            <div class="container">
+                <header class="section-title-creative">
+                    <span class="title-number" aria-hidden="true">02</span>
+                    <h2 id="skills-title" class="title-text">Compétences Techniques</h2>
+                    <div class="title-line" aria-hidden="true"></div>
+                </header>
+
+                <div class="hexagon-grid" role="list" aria-label="Liste des compétences techniques">
+                    <div class="hex-wrapper" data-skill="Python" role="listitem">
+                        <div class="hexagon">
+                            <div class="hex-inner">
+                                <div class="hex-content">
+                                    <i class="fab fa-python" aria-hidden="true"></i>
+                                    <span>Python</span>
+                                    <div class="skill-level" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">95%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hex-wrapper" data-skill="Django" role="listitem">
+                        <div class="hexagon">
+                            <div class="hex-inner">
+                                <div class="hex-content">
+                                    <i class="fas fa-server" aria-hidden="true"></i>
+                                    <span>Django</span>
+                                    <div class="skill-level" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">92%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hex-wrapper" data-skill="Java" role="listitem">
+                        <div class="hexagon">
+                            <div class="hex-inner">
+                                <div class="hex-content">
+                                    <i class="fab fa-java" aria-hidden="true"></i>
+                                    <span>Java</span>
+                                    <div class="skill-level" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hex-wrapper" data-skill="Spring Boot" role="listitem">
+                        <div class="hexagon">
+                            <div class="hex-inner">
+                                <div class="hex-content">
+                                    <i class="fas fa-leaf" aria-hidden="true"></i>
+                                    <span>Spring Boot</span>
+                                    <div class="skill-level" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100">88%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hex-wrapper" data-skill=".NET" role="listitem">
+                        <div class="hexagon">
+                            <div class="hex-inner">
+                                <div class="hex-content">
+                                    <i class="fas fa-code" aria-hidden="true"></i>
+                                    <span>.NET</span>
+                                    <div class="skill-level" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hex-wrapper" data-skill="Docker" role="listitem">
+                        <div class="hexagon">
+                            <div class="hex-inner">
+                                <div class="hex-content">
+                                    <i class="fab fa-docker" aria-hidden="true"></i>
+                                    <span>Docker</span>
+                                    <div class="skill-level" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100">82%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hex-wrapper" data-skill="Linux" role="listitem">
+                        <div class="hexagon">
+                            <div class="hex-inner">
+                                <div class="hex-content">
+                                    <i class="fab fa-linux" aria-hidden="true"></i>
+                                    <span>Linux</span>
+                                    <div class="skill-level" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100">88%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education Timeline -->
+                <aside class="education-minimal" aria-labelledby="education-title">
+                    <h3 id="education-title" class="edu-title">Parcours Académique</h3>
+                    <div class="edu-grid" role="list">
+                        <article class="edu-item" role="listitem">
+                            <time class="edu-year" datetime="2022/2024">2022-2024</time>
+                            <div class="edu-content">
+                                <h4>Master en Sciences Informatiques</h4>
+                                <p>Université libanaise internationale</p>
+                            </div>
+                        </article>
+                        <article class="edu-item" role="listitem">
+                            <time class="edu-year" datetime="2023">2023</time>
+                            <div class="edu-content">
+                                <h4>Certification Spring Boot</h4>
+                                <p>SMART MS SA - Formation professionnelle avancée</p>
+                            </div>
+                        </article>
+                        <article class="edu-item" role="listitem">
+                            <time class="edu-year" datetime="2019/2022">2019-2022</time>
+                            <div class="edu-content">
+                                <h4>Licence en Réseaux Informatiques</h4>
+                                <p>ISCAE - Mauritanie</p>
+                            </div>
+                        </article>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services-creative" aria-labelledby="services-title">
+            <div class="container">
+                <header class="section-title-creative">
+                    <span class="title-number" aria-hidden="true">03</span>
+                    <h2 id="services-title" class="title-text">Services & Expertise</h2>
+                    <div class="title-line" aria-hidden="true"></div>
+                </header>
+
+                <div class="services-grid-glass" role="list">
+                    <article class="glass-card" data-tilt role="listitem">
+                        <div class="glass-shine" aria-hidden="true"></div>
+                        <div class="glass-content">
+                            <div class="service-icon-float">
+                                <div class="icon-orbit">
+                                    <i class="fab fa-python" aria-hidden="true"></i>
+                                </div>
+                                <div class="icon-ring" aria-hidden="true"></div>
+                            </div>
+                            <h3>Développement Python & Java</h3>
+                            <p>Conception et développement d'applications desktop robustes et de scripts automatisés performants. Architecture modulaire, optimisation algorithmique et tests unitaires complets.</p>
+                            <div class="service-tech" role="list" aria-label="Technologies utilisées">
+                                <span class="tech-bubble" role="listitem">Python</span>
+                                <span class="tech-bubble" role="listitem">Java</span>
+                                <span class="tech-bubble" role="listitem">PyQt/Tkinter</span>
+                                <span class="tech-bubble" role="listitem">Swing/JavaFX</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="glass-card" data-tilt role="listitem">
+                        <div class="glass-shine" aria-hidden="true"></div>
+                        <div class="glass-content">
+                            <div class="service-icon-float">
+                                <div class="icon-orbit">
+                                    <i class="fas fa-globe" aria-hidden="true"></i>
+                                </div>
+                                <div class="icon-ring" aria-hidden="true"></div>
+                            </div>
+                            <h3>API REST & Microservices</h3>
+                            <p>Développement d'APIs RESTful scalables avec Django REST Framework et Spring Boot. Architecture microservices, documentation Swagger/OpenAPI, authentification JWT et versioning API.</p>
+                            <div class="service-tech" role="list" aria-label="Technologies utilisées">
+                                <span class="tech-bubble" role="listitem">Django</span>
+                                <span class="tech-bubble" role="listitem">Spring Boot</span>
+                                <span class="tech-bubble" role="listitem">REST</span>
+                                <span class="tech-bubble" role="listitem">GraphQL</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="glass-card" data-tilt role="listitem">
+                        <div class="glass-shine" aria-hidden="true"></div>
+                        <div class="glass-content">
+                            <div class="service-icon-float">
+                                <div class="icon-orbit">
+                                    <i class="fas fa-cloud" aria-hidden="true"></i>
+                                </div>
+                                <div class="icon-ring" aria-hidden="true"></div>
+                            </div>
+                            <h3>DevOps & Cloud Infrastructure</h3>
+                            <p>Containerisation avec Docker, orchestration Kubernetes, pipelines CI/CD avec Jenkins/GitLab CI, monitoring avec Prometheus/Grafana. Infrastructure as Code avec Terraform.</p>
+                            <div class="service-tech" role="list" aria-label="Technologies utilisées">
+                                <span class="tech-bubble" role="listitem">Docker</span>
+                                <span class="tech-bubble" role="listitem">Kubernetes</span>
+                                <span class="tech-bubble" role="listitem">CI/CD</span>
+                                <span class="tech-bubble" role="listitem">AWS/Azure</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects-creative" aria-labelledby="projects-title">
+            <div class="container">
+                <header class="section-title-creative">
+                    <span class="title-number" aria-hidden="true">04</span>
+                    <h2 id="projects-title" class="title-text">Projets Réalisés</h2>
+                    <div class="title-line" aria-hidden="true"></div>
+                </header>
+
+                <nav class="projects-filter-modern" aria-label="Filtrer les projets">
+                    <button class="filter-chip active" data-filter="all" aria-pressed="true">
+                        <span>Tous les projets</span>
+                        <span class="chip-count">6</span>
+                    </button>
+                    <button class="filter-chip" data-filter="django" aria-pressed="false">
+                        <span>Django</span>
+                        <span class="chip-count">4</span>
+                    </button>
+                    <button class="filter-chip" data-filter="spring" aria-pressed="false">
+                        <span>Spring Boot</span>
+                        <span class="chip-count">2</span>
+                    </button>
+                </nav>
+
+                <div class="projects-masonry" role="list" aria-label="Liste des projets">
+                    <article class="project-item" data-category="django" role="listitem">
+                        <div class="project-wrapper">
+                            <div class="project-image">
+                                <img src="img/loginBiblio.png" alt="Interface de connexion du système de gestion de bibliothèque" loading="lazy" width="400" height="300">
+                                <div class="project-overlay">
+                                    <div class="overlay-content">
+                                        <h3>Système de Gestion de Bibliothèque</h3>
+                                        <p>Application complète avec authentification sécurisée, gestion des emprunts, et système de réservation en ligne.</p>
+                                        <div class="project-tags">
+                                            <span>Django</span>
+                                            <span>PostgreSQL</span>
+                                            <span>Redis</span>
+                                        </div>
+                                        <a href="img/loginBiblio.png" class="view-btn" aria-label="Voir le projet en grand">
+                                            <i class="fas fa-expand"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item" data-category="django" role="listitem">
+                        <div class="project-wrapper">
+                            <div class="project-image">
+                                <img src="img/Biblio1.png" alt="Dashboard administrateur avec statistiques en temps réel" loading="lazy" width="400" height="300">
+                                <div class="project-overlay">
+                                    <div class="overlay-content">
+                                        <h3>Dashboard Administrateur</h3>
+                                        <p>Interface d'administration intuitive avec statistiques en temps réel, graphiques interactifs et exports de données.</p>
+                                        <div class="project-tags">
+                                            <span>Django</span>
+                                            <span>Chart.js</span>
+                                            <span>AJAX</span>
+                                        </div>
+                                        <a href="img/Biblio1.png" class="view-btn" aria-label="Voir le projet en grand">
+                                            <i class="fas fa-expand"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item" data-category="spring" role="listitem">
+                        <div class="project-wrapper">
+                            <div class="project-image">
+                                <img src="img/Gemp1.png" alt="Application de gestion des ressources humaines" loading="lazy" width="400" height="300">
+                                <div class="project-overlay">
+                                    <div class="overlay-content">
+                                        <h3>Système de Gestion RH</h3>
+                                        <p>Application entreprise complète pour la gestion des employés, congés, évaluations et paie avec génération automatique de rapports.</p>
+                                        <div class="project-tags">
+                                            <span>Spring Boot</span>
+                                            <span>MySQL</span>
+                                            <span>JPA</span>
+                                        </div>
+                                        <a href="img/Gemp1.png" class="view-btn" aria-label="Voir le projet en grand">
+                                            <i class="fas fa-expand"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item" data-category="django" role="listitem">
+                        <div class="project-wrapper">
+                            <div class="project-image">
+                                <img src="img/Biblio2.png" alt="Catalogue de livres avec recherche avancée" loading="lazy" width="400" height="300">
+                                <div class="project-overlay">
+                                    <div class="overlay-content">
+                                        <h3>Catalogue de Livres Intelligent</h3>
+                                        <p>Système de recherche et filtrage avancé avec suggestions personnalisées et recommandations basées sur l'IA.</p>
+                                        <div class="project-tags">
+                                            <span>Django</span>
+                                            <span>ElasticSearch</span>
+                                            <span>ML</span>
+                                        </div>
+                                        <a href="img/Biblio2.png" class="view-btn" aria-label="Voir le projet en grand">
+                                            <i class="fas fa-expand"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item" data-category="spring" role="listitem">
+                        <div class="project-wrapper">
+                            <div class="project-image">
+                                <img src="img/Gemp2.png" alt="Module RH avancé avec reporting" loading="lazy" width="400" height="300">
+                                <div class="project-overlay">
+                                    <div class="overlay-content">
+                                        <h3>Module RH Avancé</h3>
+                                        <p>Système complet de gestion avec reporting dynamique, workflows d'approbation et intégration ERP.</p>
+                                        <div class="project-tags">
+                                            <span>Spring Boot</span>
+                                            <span>JPA/Hibernate</span>
+                                            <span>Thymeleaf</span>
+                                        </div>
+                                        <a href="img/Gemp2.png" class="view-btn" aria-label="Voir le projet en grand">
+                                            <i class="fas fa-expand"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-item" data-category="django" role="listitem">
+                        <div class="project-wrapper">
+                            <div class="project-image">
+                                <img src="img/editBiblio.png" alt="Interface d'édition avec validation en temps réel" loading="lazy" width="400" height="300">
+                                <div class="project-overlay">
+                                    <div class="overlay-content">
+                                        <h3>Interface d'Édition CRUD</h3>
+                                        <p>Système CRUD complet avec validation en temps réel, upload de fichiers et historique des modifications.</p>
+                                        <div class="project-tags">
+                                            <span>Django</span>
+                                            <span>Forms</span>
+                                            <span>AJAX</span>
+                                        </div>
+                                        <a href="img/editBiblio.png" class="view-btn" aria-label="Voir le projet en grand">
+                                            <i class="fas fa-expand"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-creative" aria-labelledby="contact-title">
+            <div class="container">
+                <header class="section-title-creative">
+                    <span class="title-number" aria-hidden="true">05</span>
+                    <h2 id="contact-title" class="title-text">Me Contacter</h2>
+                    <div class="title-line" aria-hidden="true"></div>
+                </header>
+
+                <div class="contact-layout">
+                    <div class="contact-info-cards">
+                        <address class="info-card-modern">
+                            <div class="info-icon">
+                                <i class="fas fa-phone-alt" aria-hidden="true"></i>
+                            </div>
+                            <div class="info-details">
+                                <span class="info-label">Téléphone</span>
+                                <a href="tel:+22232425143" class="info-value">+222 32 42 51 43</a>
+                            </div>
+                            <div class="info-glow" aria-hidden="true"></div>
+                        </address>
+
+                        <address class="info-card-modern">
+                            <div class="info-icon">
+                                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                            </div>
+                            <div class="info-details">
+                                <span class="info-label">WhatsApp</span>
+                                <a href="https://wa.me/+22242425143" target="_blank" rel="noopener noreferrer" class="info-value">+222 42 42 51 43</a>
+                            </div>
+                            <div class="info-glow" aria-hidden="true"></div>
+                        </address>
+
+                        <address class="info-card-modern">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
+                            </div>
+                            <div class="info-details">
+                                <span class="info-label">Email</span>
+                                <a href="mailto:Cheiikh.id65@gmail.com" class="info-value">Cheiikh.id65@gmail.com</a>
+                            </div>
+                            <div class="info-glow" aria-hidden="true"></div>
+                        </address>
+
+                        <nav class="social-modern" aria-label="Réseaux sociaux">
+                            <a href="https://wa.me/+22242425143" target="_blank" rel="noopener noreferrer" class="social-orb" aria-label="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                                <span class="orb-ring" aria-hidden="true"></span>
                             </a>
-                            <a href="#contact" class="btn-outline">
-                                <span class="btn-text">Contact</span>
-                                <span class="btn-arrows">
-                                    <i class="fas fa-arrow-right"></i>
-                                </span>
+                            <a href="https://facebook.com/cheikh.id" target="_blank" rel="noopener noreferrer" class="social-orb" aria-label="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                                <span class="orb-ring" aria-hidden="true"></span>
                             </a>
-                        </div>
+                            <a href="https://www.linkedin.com/in/cheikh-idoumou-96a174269" target="_blank" rel="noopener noreferrer" class="social-orb" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                                <span class="orb-ring" aria-hidden="true"></span>
+                            </a>
+                        </nav>
                     </div>
-                </div>
-                <div class="card-reflection"></div>
-            </div>
-        </div>
-    </section>
 
-    <!-- About Section - 3D Card Flip -->
-    <section id="about" class="about-creative">
-        <div class="container">
-            <div class="section-title-creative">
-                <span class="title-number">01</span>
-                <h2 class="title-text">À Propos</h2>
-                <div class="title-line"></div>
-            </div>
-            
-            <div class="about-grid">
-                <div class="about-card-3d">
-                    <div class="card-3d-inner">
-                        <div class="card-3d-front">
-                            <div class="front-content">
-                                <i class="fas fa-user-astronaut"></i>
-                                <h3>Qui suis-je ?</h3>
-                                <p>Passez la souris pour découvrir</p>
-                            </div>
-                        </div>
-                        <div class="card-3d-back">
-                            <div class="back-content">
-                                <h3>Mon Parcours</h3>
-                                <p>Ingénieur logiciel spécialisé en développement backend avec 5+ années d'expérience. Passionné par l'architecture logicielle et les solutions innovantes.</p>
-                                <div class="card-badge">Master en Sciences Informatiques</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="about-card-3d">
-                    <div class="card-3d-inner">
-                        <div class="card-3d-front">
-                            <div class="front-content">
-                                <i class="fas fa-rocket"></i>
-                                <h3>Ma Mission</h3>
-                                <p>Passez la souris pour découvrir</p>
-                            </div>
-                        </div>
-                        <div class="card-3d-back">
-                            <div class="back-content">
-                                <h3>Objectif</h3>
-                                <p>Créer des applications robustes et scalables qui transforment les défis techniques en solutions élégantes et performantes.</p>
-                                <div class="card-badge">Innovation & Excellence</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="about-card-3d">
-                    <div class="card-3d-inner">
-                        <div class="card-3d-front">
-                            <div class="front-content">
-                                <i class="fas fa-brain"></i>
-                                <h3>Mon Approche</h3>
-                                <p>Passez la souris pour découvrir</p>
-                            </div>
-                        </div>
-                        <div class="card-3d-back">
-                            <div class="back-content">
-                                <h3>Méthodologie</h3>
-                                <p>Code propre, tests rigoureux, documentation claire et amélioration continue sont au cœur de ma pratique professionnelle.</p>
-                                <div class="card-badge">Clean Code</div>
-                            </div>
+                    <div class="map-modern">
+                        <div class="map-frame">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10160.15784353476!2d-15.988598513691015!3d18.130614953056202!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2s!4v1708409025839!5m2!1sfr!2s" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    title="Localisation à Nouakchott, Mauritanie"
+                                    width="600" 
+                                    height="450"></iframe>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Skills Section - Interactive Hexagon Grid -->
-    <section id="skills" class="skills-creative">
-        <div class="container">
-            <div class="section-title-creative">
-                <span class="title-number">02</span>
-                <h2 class="title-text">Compétences</h2>
-                <div class="title-line"></div>
-            </div>
-
-            <div class="hexagon-grid">
-                <div class="hex-wrapper" data-skill="Python">
-                    <div class="hexagon">
-                        <div class="hex-inner">
-                            <div class="hex-content">
-                                <i class="fab fa-python"></i>
-                                <span>Python</span>
-                                <div class="skill-level">95%</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hex-wrapper" data-skill="Django">
-                    <div class="hexagon">
-                        <div class="hex-inner">
-                            <div class="hex-content">
-                                <i class="fas fa-server"></i>
-                                <span>Django</span>
-                                <div class="skill-level">92%</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hex-wrapper" data-skill="Java">
-                    <div class="hexagon">
-                        <div class="hex-inner">
-                            <div class="hex-content">
-                                <i class="fab fa-java"></i>
-                                <span>Java</span>
-                                <div class="skill-level">90%</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hex-wrapper" data-skill="Spring Boot">
-                    <div class="hexagon">
-                        <div class="hex-inner">
-                            <div class="hex-content">
-                                <i class="fas fa-leaf"></i>
-                                <span>Spring</span>
-                                <div class="skill-level">88%</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hex-wrapper" data-skill=".NET">
-                    <div class="hexagon">
-                        <div class="hex-inner">
-                            <div class="hex-content">
-                                <i class="fas fa-code"></i>
-                                <span>.NET</span>
-                                <div class="skill-level">85%</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hex-wrapper" data-skill="Docker">
-                    <div class="hexagon">
-                        <div class="hex-inner">
-                            <div class="hex-content">
-                                <i class="fab fa-docker"></i>
-                                <span>Docker</span>
-                                <div class="skill-level">82%</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hex-wrapper" data-skill="Linux">
-                    <div class="hexagon">
-                        <div class="hex-inner">
-                            <div class="hex-content">
-                                <i class="fab fa-linux"></i>
-                                <span>Linux</span>
-                                <div class="skill-level">88%</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Education Timeline - Minimal Modern -->
-            <div class="education-minimal">
-                <h3 class="edu-title">Parcours Académique</h3>
-                <div class="edu-grid">
-                    <div class="edu-item">
-                        <div class="edu-year">2022-2024</div>
-                        <div class="edu-content">
-                            <h4>Master en Sciences Informatiques</h4>
-                            <p>Université libanaise internationale</p>
-                        </div>
-                    </div>
-                    <div class="edu-item">
-                        <div class="edu-year">2023</div>
-                        <div class="edu-content">
-                            <h4>Certification Spring Boot</h4>
-                            <p>SMART MS SA</p>
-                        </div>
-                    </div>
-                    <div class="edu-item">
-                        <div class="edu-year">2019-2022</div>
-                        <div class="edu-content">
-                            <h4>Licence Réseaux Informatiques</h4>
-                            <p>ISCAE - Mauritanie</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section - Glassmorphism Cards with Tilt -->
-    <section id="services" class="services-creative">
-        <div class="container">
-            <div class="section-title-creative">
-                <span class="title-number">03</span>
-                <h2 class="title-text">Services</h2>
-                <div class="title-line"></div>
-            </div>
-
-            <div class="services-grid-glass">
-                <div class="glass-card" data-tilt>
-                    <div class="glass-shine"></div>
-                    <div class="glass-content">
-                        <div class="service-icon-float">
-                            <div class="icon-orbit">
-                                <i class="fab fa-python"></i>
-                            </div>
-                            <div class="icon-ring"></div>
-                        </div>
-                        <h3>Développement Python & Java</h3>
-                        <p>Scripts performants et applications desktop robustes avec architecture solide et optimisations avancées.</p>
-                        <div class="service-tech">
-                            <span class="tech-bubble">Python</span>
-                            <span class="tech-bubble">Java</span>
-                            <span class="tech-bubble">Desktop</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-card" data-tilt>
-                    <div class="glass-shine"></div>
-                    <div class="glass-content">
-                        <div class="service-icon-float">
-                            <div class="icon-orbit">
-                                <i class="fas fa-globe"></i>
-                            </div>
-                            <div class="icon-ring"></div>
-                        </div>
-                        <h3>Développement Web Backend</h3>
-                        <p>Applications web évolutives avec Django et Spring Boot. Architecture microservices et API RESTful performantes.</p>
-                        <div class="service-tech">
-                            <span class="tech-bubble">Django</span>
-                            <span class="tech-bubble">Spring Boot</span>
-                            <span class="tech-bubble">REST API</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-card" data-tilt>
-                    <div class="glass-shine"></div>
-                    <div class="glass-content">
-                        <div class="service-icon-float">
-                            <div class="icon-orbit">
-                                <i class="fas fa-cloud"></i>
-                            </div>
-                            <div class="icon-ring"></div>
-                        </div>
-                        <h3>DevOps & Infrastructure</h3>
-                        <p>Containerisation avec Docker, orchestration Kubernetes, CI/CD et monitoring pour applications haute disponibilité.</p>
-                        <div class="service-tech">
-                            <span class="tech-bubble">Docker</span>
-                            <span class="tech-bubble">Kubernetes</span>
-                            <span class="tech-bubble">CI/CD</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section - Masonry Grid with Hover Effects -->
-    <section id="projects" class="projects-creative">
-        <div class="container">
-            <div class="section-title-creative">
-                <span class="title-number">04</span>
-                <h2 class="title-text">Projets</h2>
-                <div class="title-line"></div>
-            </div>
-
-            <div class="projects-filter-modern">
-                <button class="filter-chip active" data-filter="all">
-                    <span>Tous</span>
-                    <span class="chip-count">6</span>
-                </button>
-                <button class="filter-chip" data-filter="django">
-                    <span>Django</span>
-                    <span class="chip-count">4</span>
-                </button>
-                <button class="filter-chip" data-filter="spring">
-                    <span>Spring Boot</span>
-                    <span class="chip-count">2</span>
-                </button>
-            </div>
-
-            <div class="projects-masonry">
-                <div class="project-item" data-category="django">
-                    <div class="project-wrapper">
-                        <div class="project-image">
-                            <img src="img/loginBiblio.png" alt="Bibliothèque">
-                            <div class="project-overlay">
-                                <div class="overlay-content">
-                                    <h3>Gestion Bibliothèque</h3>
-                                    <p>Système complet de gestion avec authentification</p>
-                                    <div class="project-tags">
-                                        <span>Django</span>
-                                        <span>PostgreSQL</span>
-                                    </div>
-                                    <a href="img/loginBiblio.png" class="view-btn">
-                                        <i class="fas fa-expand"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-item" data-category="django">
-                    <div class="project-wrapper">
-                        <div class="project-image">
-                            <img src="img/Biblio1.png" alt="Dashboard">
-                            <div class="project-overlay">
-                                <div class="overlay-content">
-                                    <h3>Dashboard Admin</h3>
-                                    <p>Interface d'administration avec statistiques</p>
-                                    <div class="project-tags">
-                                        <span>Django</span>
-                                        <span>Charts</span>
-                                    </div>
-                                    <a href="img/Biblio1.png" class="view-btn">
-                                        <i class="fas fa-expand"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-item" data-category="spring">
-                    <div class="project-wrapper">
-                        <div class="project-image">
-                            <img src="img/Gemp1.png" alt="Gestion Employés">
-                            <div class="project-overlay">
-                                <div class="overlay-content">
-                                    <h3>Gestion RH</h3>
-                                    <p>Application complète de gestion des employés</p>
-                                    <div class="project-tags">
-                                        <span>Spring Boot</span>
-                                        <span>MySQL</span>
-                                    </div>
-                                    <a href="img/Gemp1.png" class="view-btn">
-                                        <i class="fas fa-expand"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-item" data-category="django">
-                    <div class="project-wrapper">
-                        <div class="project-image">
-                            <img src="img/Biblio2.png" alt="Catalogue">
-                            <div class="project-overlay">
-                                <div class="overlay-content">
-                                    <h3>Catalogue Livres</h3>
-                                    <p>Système de recherche et filtrage avancé</p>
-                                    <div class="project-tags">
-                                        <span>Django</span>
-                                        <span>ElasticSearch</span>
-                                    </div>
-                                    <a href="img/Biblio2.png" class="view-btn">
-                                        <i class="fas fa-expand"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-item" data-category="spring">
-                    <div class="project-wrapper">
-                        <div class="project-image">
-                            <img src="img/Gemp2.png" alt="Employés">
-                            <div class="project-overlay">
-                                <div class="overlay-content">
-                                    <h3>Module RH Avancé</h3>
-                                    <p>Gestion complète avec reporting</p>
-                                    <div class="project-tags">
-                                        <span>Spring Boot</span>
-                                        <span>JPA</span>
-                                    </div>
-                                    <a href="img/Gemp2.png" class="view-btn">
-                                        <i class="fas fa-expand"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-item" data-category="django">
-                    <div class="project-wrapper">
-                        <div class="project-image">
-                            <img src="img/editBiblio.png" alt="Edition">
-                            <div class="project-overlay">
-                                <div class="overlay-content">
-                                    <h3>Interface Édition</h3>
-                                    <p>CRUD complet avec validation</p>
-                                    <div class="project-tags">
-                                        <span>Django</span>
-                                        <span>Forms</span>
-                                    </div>
-                                    <a href="img/editBiblio.png" class="view-btn">
-                                        <i class="fas fa-expand"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section - Futuristic Form -->
-    <section id="contact" class="contact-creative">
-        <div class="container">
-            <div class="section-title-creative">
-                <span class="title-number">05</span>
-                <h2 class="title-text">Contact</h2>
-                <div class="title-line"></div>
-            </div>
-
-            <div class="contact-layout">
-                <div class="contact-info-cards">
-                    <div class="info-card-modern">
-                        <div class="info-icon">
-                            <i class="fas fa-phone-alt"></i>
-                        </div>
-                        <div class="info-details">
-                            <span class="info-label">Téléphone</span>
-                            <a href="tel:+22232425143" class="info-value">+222 32 42 51 43</a>
-                        </div>
-                        <div class="info-glow"></div>
-                    </div>
-
-                    <div class="info-card-modern">
-                        <div class="info-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <div class="info-details">
-                            <span class="info-label">WhatsApp</span>
-                            <a href="https://wa.me/+22242425143" class="info-value">+222 42 42 51 43</a>
-                        </div>
-                        <div class="info-glow"></div>
-                    </div>
-
-                    <div class="info-card-modern">
-                        <div class="info-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="info-details">
-                            <span class="info-label">Email</span>
-                            <a href="mailto:Cheiikh.id65@gmail.com" class="info-value">Cheiikh.id65@gmail.com</a>
-                        </div>
-                        <div class="info-glow"></div>
-                    </div>
-
-                    <div class="social-modern">
-                        <a href="https://wa.me/+22242425143" class="social-orb">
-                            <i class="fab fa-whatsapp"></i>
-                            <span class="orb-ring"></span>
-                        </a>
-                        <a href="https://facebook.com/cheikh.id" class="social-orb">
-                            <i class="fab fa-facebook-f"></i>
-                            <span class="orb-ring"></span>
-                        </a>
-                        <a href="https://www.linkedin.com/in/cheikh-idoumou-96a174269" class="social-orb">
-                            <i class="fab fa-linkedin-in"></i>
-                            <span class="orb-ring"></span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="map-modern">
-                    <div class="map-frame">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10160.15784353476!2d-15.988598513691015!3d18.130614953056202!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2s!4v1708409025839!5m2!1sfr!2s" 
-                                allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer-creative">
+    <!-- Footer amélioré -->
+    <footer class="footer-creative" role="contentinfo">
         <div class="footer-content">
-            <p>&copy; 2024 <span class="text-gold">Cheikh Idoumou</span> - Tous droits réservés</p>
-            <p class="footer-tagline">Crafted with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i></p>
+            <p>&copy; <time datetime="2024">2024</time> <span class="text-gold">Cheikh Idoumou</span> - Tous droits réservés</p>
+            <p class="footer-tagline">Conçu avec <i class="fas fa-heart" aria-label="amour"></i> et <i class="fas fa-coffee" aria-label="café"></i> à Nouakchott</p>
+            <nav class="footer-links" aria-label="Liens du pied de page">
+                <a href="#hero">Accueil</a>
+                <span aria-hidden="true">•</span>
+                <a href="#about">À propos</a>
+                <span aria-hidden="true">•</span>
+                <a href="#contact">Contact</a>
+                <span aria-hidden="true">•</span>
+                <a href="Cheikh_IdoumouCV2.pdf" download>CV</a>
+            </nav>
         </div>
     </footer>
 
+    <!-- Progress Scroll Bar -->
+    <div class="scroll-progress" role="progressbar" aria-label="Progression de la lecture" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="scroll-progress-bar"></div>
+    </div>
+
     <!-- Scripts -->
-    <script src="js/main.js"></script>
+    <script src="js/main.js" defer></script>
+    
+    <!-- Analytics (à personnaliser) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script> -->
 </body>
 
 </html>
