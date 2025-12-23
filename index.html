@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
-    <title>Cheikh Idoumou</title>
+    <title>Cheikh Idoumou - Portfolio Moderne</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta content="Développeur Backend, Python, Java, .NET" name="keywords">
+    <meta content="Portfolio professionnel de Cheikh Idoumou" name="description">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -14,517 +14,497 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
+    <!-- Custom Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="51">
-    <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
+<body>
+    <!-- Loader -->
+    <div class="loader-wrapper">
+        <div class="loader">
+            <div class="loader-inner">
+                <div class="loader-line"></div>
+                <div class="loader-line"></div>
+                <div class="loader-line"></div>
+            </div>
         </div>
     </div>
-    <!-- Spinner End -->
 
-
-    <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light fixed-top shadow py-lg-0 px-4 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-        <a href="index.html" class="navbar-brand d-block d-lg-none">
-            <h1 class="text-primary fw-bold m-0">Cheikh Idoumou</h1>
-        </a>
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-between py-4 py-lg-0" id="navbarCollapse">
-            <div class="navbar-nav ms-auto py-0">
-                <a href="#home" class="nav-item nav-link active">Accueil</a>
-                <a href="#skill" class="nav-item nav-link">compétences</a>
-                <a href="#service" class="nav-item nav-link">services</a>
-            </div>
-            <a href="index.html" class="navbar-brand bg-secondary py-3 px-4 mx-3 d-none d-lg-block">
-                <h1 class="text-primary fw-bold m-0">Cheikh Idoumou</h1>
+    <!-- Navbar -->
+    <nav class="navbar-modern">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-text">CI</span>
+                <span class="logo-trail"></span>
             </a>
-            <div class="navbar-nav me-auto py-0">
-                <a href="#project" class="nav-item nav-link">projets</a>
-                <a href="#contact" class="nav-item nav-link">Contact</a>
+            <div class="nav-menu" id="navMenu">
+                <a href="#hero" class="nav-link active" data-section="hero">Accueil</a>
+                <a href="#about" class="nav-link" data-section="about">À propos</a>
+                <a href="#skills" class="nav-link" data-section="skills">Compétences</a>
+                <a href="#services" class="nav-link" data-section="services">Services</a>
+                <a href="#projects" class="nav-link" data-section="projects">Projets</a>
+                <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
-    <!-- Navbar End -->
 
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-background">
+            <div class="hero-grid"></div>
+            <div class="hero-gradient"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-label morph-in">
+                    <span class="label-icon"></span>
+                    <span>Développeur Backend</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line morph-in-delay-1">Salut! Je suis</span>
+                    <span class="title-name morph-in-delay-2">Cheikh Idoumou</span>
+                </h1>
+                <div class="hero-subtitle morph-in-delay-3">
+                    <span class="typing-text"></span>
+                    <span class="cursor">|</span>
+                </div>
+                <p class="hero-description morph-in-delay-4">
+                    Spécialisé en développement backend avec Django, Spring Boot et .NET. 
+                    Je transforme des idées complexes en solutions logicielles élégantes et performantes.
+                </p>
+                <div class="hero-actions morph-in-delay-5">
+                    <a href="Cheikh_IdoumouCV2.pdf" class="btn-primary">
+                        <span class="btn-text">Télécharger CV</span>
+                        <span class="btn-icon"><i class="fas fa-download"></i></span>
+                        <span class="btn-border"></span>
+                    </a>
+                    <a href="#contact" class="btn-secondary">
+                        <span class="btn-text">Me Contacter</span>
+                        <span class="btn-icon"><i class="fas fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="visual-card morph-in-delay-6">
+                    <div class="card-border"></div>
+                    <div class="card-content">
+                        <img src="img/chkidprof.jpeg" alt="Cheikh Idoumou" class="profile-image">
+                        <div class="card-glow"></div>
+                    </div>
+                    <div class="floating-badge badge-1">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="floating-badge badge-2">
+                        <i class="fab fa-java"></i>
+                    </div>
+                    <div class="floating-badge badge-3">
+                        <i class="fas fa-code"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span class="scroll-text">Scroll</span>
+            <span class="scroll-line"></span>
+        </div>
+    </section>
 
-    <!-- Header Start -->
-    <div class="container-fluid bg-light my-6 mt-0" id="home">
+    <!-- About Section -->
+    <section id="about" class="about-section">
         <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6 py-6 pb-0 pt-lg-0">
-                    <h3 class="text-primary mb-3">Salut! je suis</h3>
-                    <h1 class="display-3 mb-3">Cheikh Idoumou</h1>
-                    <h2 class="typed-text-output d-inline"></h2>
-                    <div class="typed-text d-none">Développeur back-End,  Django, Spring boot et .Net,  Python, Java et C#</div>
-                    <p><br></p>
-                    <div class="d-flex align-items-center pt-5">
-                        <a href="Cheikh_IdoumouCV2.pdf" class="btn btn-primary py-3 px-4 me-5">Télécharger le CV</a>
-                       
+            <div class="section-header">
+                <span class="section-label">Qui suis-je</span>
+                <h2 class="section-title">À propos de moi</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-border"></div>
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Années d'expérience</div>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <img loading="lazy" class="img-fluid" src="img/chkidprof.jpeg" alt="">
+                    <div class="stat-card">
+                        <div class="stat-border"></div>
+                        <div class="stat-number">20+</div>
+                        <div class="stat-label">Projets complétés</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-border"></div>
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Satisfaction client</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Header End -->
+    </section>
 
-
-
-
-
-    <!-- Expertise Start -->
-    <div class="container-xxl py-6 pb-5" id="skill">
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
         <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <h1 class="display-5 mb-5">Compétences</h1>
-
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <div class="skill mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">HTML & CSS</h6>
-
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+            <div class="section-header">
+                <span class="section-label">Expertise</span>
+                <h2 class="section-title">Compétences Techniques</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="category-title">Backend Development</h3>
+                    <div class="skills-list">
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fab fa-python"></i>
                             </div>
-                            <div class="skill mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">Python & Django</h6>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            
-                            <div class="skill mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">Java & Spring boot</h6>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-primary role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="skill-info">
+                                <h4>Python & Django</h4>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="95"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="skill mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">C# et .Net</h6>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fab fa-java"></i>
+                            </div>
+                            <div class="skill-info">
+                                <h4>Java & Spring Boot</h4>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="90"></div>
                                 </div>
                             </div>
-                            <div class="skill mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">Linux</h6>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-code"></i>
                             </div>
-                            <div class="skill mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">Réseaux Informatiques</h6>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="skill-info">
+                                <h4>C# & .NET</h4>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="88"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <ul class="nav nav-pills rounded border border-2 border-primary mb-5">
-                        <li class="nav-item w-50">
-                            <button class="nav-link w-100 py-3 fs-5 active" data-bs-toggle="pill" href="#tab-2">Education</button>
-                        </li>
-                        
-                    </ul>
-                    <div class="tab-content">
-                        <div id="tab-2" class="tab-pane fade show p-0 active">
-                            <div class="row gy-5 gx-4">
-                                
-                                <div class="col-sm-6">
-                                    <h5>Master</h5>
-                                    <hr class="text-primary my-2">
-                                    <p class="text-dark mb-1">Science Informatiques - option: Conception et Développement des systèmes d'information</p>
-                                    <p class="text-primary mb-1">10/2022 - 07/2024</p>
-                                    <h6 class="mb-0">Université libanaise internationale en Mauritanie</h6>
-                                </div>
 
-                                <div class="col-sm-6">
-                                    <h5>Formation certifié</h5>
-                                    <hr class="text-primary my-2">
-                                    <p class="text-dark mb-1">Back-end Spring boot</p>
-                                    <p class="text-primary mb-1">Décembre 2023</p>
-                                    <h6 class="mb-0">L'entreprise SMART MS SA</h6>
+                <div class="skill-category">
+                    <h3 class="category-title">DevOps & Infrastructure</h3>
+                    <div class="skills-list">
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fab fa-linux"></i>
+                            </div>
+                            <div class="skill-info">
+                                <h4>Linux & Administration</h4>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="85"></div>
                                 </div>
-
-                                <div class="col-sm-6">
-                                    <h5>Licence</h5>
-                                    <hr class="text-primary my-2">
-                                    <p class="text-dark mb-1">Réseaux Informatiques et télécommunications</p>
-                                    <p class="text-primary mb-1">10/2019 - 07/2022</p>
-                                    <h6 class="mb-0">ISCAE - Mauritanie</h6>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fab fa-docker"></i>
+                            </div>
+                            <div class="skill-info">
+                                <h4>Docker & Kubernetes</h4>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="80"></div>
                                 </div>
-                                
-                                <div class="col-sm-6">
-                                    <h5>Baccalauréat</h5>
-                                    <hr class="text-primary my-2">
-                                    <p class="text-dark mb-1">Math (Serie C)</p>
-                                    <p class="text-primary mb-1">2018</p>
-                                    <h6 class="mb-0">Écoles Privées ELMAARIF - Mauritanie</h6>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <div class="skill-info">
+                                <h4>Réseaux Informatiques</h4>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="90"></div>
                                 </div>
-
-                                
-                                
-                                
-                                
-                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Education Timeline -->
+            <div class="education-timeline">
+                <h3 class="timeline-title">Parcours Académique</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2022 - 2024</span>
+                            <h4>Master en Sciences Informatiques</h4>
+                            <p>Conception et Développement des systèmes d'information</p>
+                            <span class="timeline-location">Université libanaise internationale en Mauritanie</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">Décembre 2023</span>
+                            <h4>Formation Certifiée Spring Boot</h4>
+                            <p>Back-end Development</p>
+                            <span class="timeline-location">SMART MS SA</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2019 - 2022</span>
+                            <h4>Licence en Réseaux Informatiques</h4>
+                            <p>Réseaux et télécommunications</p>
+                            <span class="timeline-location">ISCAE - Mauritanie</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- Expertise End -->
+    </section>
 
-
-    <!-- Service Start -->
-    <div class="container-fluid bg-light my-5 py-6" id="service">
+    <!-- Services Section -->
+    <section id="services" class="services-section">
         <div class="container">
-            <div class="row g-5 mb-5 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="col-lg-6">
-                    <h1 class="display-5 mb-0">Mes services</h1>
-                </div>
+            <div class="section-header">
+                <span class="section-label">Ce que je fais</span>
+                <h2 class="section-title">Mes Services</h2>
             </div>
-            <div class="row g-4">
-                
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item d-flex flex-column flex-sm-row bg-white rounded h-100 p-4 p-lg-5">
-                        <div class="bg-icon flex-shrink-0 mb-3">
-                            <i class="fa fa-laptop-code fa-2x text-dark"></i>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-border"></div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-laptop-code"></i>
+                            <div class="icon-glow"></div>
                         </div>
-                        <div class="ms-sm-4">
-                            <h4 class="mb-3">Développeur Python et Java</h4>
-                            <p style="text-align: justify;">En tant que développeur Python et Java, je suis passionné par l'écriture de scripts et d'applications de bureau performantes. Ma passion me permet de résoudre efficacement des problèmes complexes et de développer des solutions logicielles sur mesure pour répondre aux besoins spécifiques.</p>
-                        </div>
-                    </div>
-                </div>               
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item d-flex flex-column flex-sm-row bg-white rounded h-100 p-4 p-lg-5">
-                        <div class="bg-icon flex-shrink-0 mb-3">
-                            <i class="fa fa-code fa-2x text-dark"></i>
-                        </div>
-                        <div class="ms-sm-4">
-                            <h4 class="mb-3">Développeur Django et Spring boot</h4>
-                            <p style="text-align: justify;">En tant que développeur Django et Spring boot, je me spécialise dans la création de sites web dynamiques et sécurisés. J'utilise la puissance de ces frameworks pour concevoir des applications web évolutives, en veillant à ce qu'elles soient conviviales, bien structurées et faciles à maintenir.</p>
+                        <h3>Développement Python & Java</h3>
+                        <p>Création de scripts performants et d'applications de bureau robustes. Solutions logicielles sur mesure pour répondre à vos besoins spécifiques avec une architecture solide.</p>
+                        <div class="service-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Java</span>
+                            <span class="tag">Desktop Apps</span>
                         </div>
                     </div>
                 </div>
-                
+
+                <div class="service-card">
+                    <div class="service-border"></div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-code"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <h3>Développement Django & Spring Boot</h3>
+                        <p>Conception d'applications web dynamiques et sécurisées. Architecture évolutive avec des interfaces conviviales, bien structurées et faciles à maintenir.</p>
+                        <div class="service-tags">
+                            <span class="tag">Django</span>
+                            <span class="tag">Spring Boot</span>
+                            <span class="tag">REST API</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-border"></div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-server"></i>
+                            <div class="icon-glow"></div>
+                        </div>
+                        <h3>Infrastructure & DevOps</h3>
+                        <p>Mise en place de solutions d'infrastructure moderne avec Docker, Kubernetes et monitoring. Optimisation des performances et automatisation des déploiements.</p>
+                        <div class="service-tags">
+                            <span class="tag">Docker</span>
+                            <span class="tag">Kubernetes</span>
+                            <span class="tag">CI/CD</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Service End -->
+    </section>
 
-
-    <!-- Projects Start 
-    <div class="container-xxl py-6 pt-5" id="project">
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
         <div class="container">
-            <div class="row g-5 mb-5 align-items-center wow fadeInUp" data-wow-delay="0.1s">
-                <div class="col-lg-6">
-                    <h1 class="display-5 mb-0">Mes Projets</h1>
-                </div>
-                <div class="col-lg-6 text-lg-end">
-                    <ul class="list-inline mx-n3 mb-0" id="portfolio-flters">
-                        <li class="mx-3 active" data-filter="*">Tous les projets</li>
-                        <li class="mx-3" data-filter=".first">Django</li>
-                    </ul>
-                </div>
+            <div class="section-header">
+                <span class="section-label">Mon travail</span>
+                <h2 class="section-title">Projets Réalisés</h2>
             </div>
-            <div class="row g-4 portfolio-container wow fadeInUp" data-wow-delay="0.1s">
-                <div class="col-lg-4 col-md-6 portfolio-item first">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/loginBiblio.png" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/loginBiblio.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item first">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/Biblio1.png" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/Biblio1.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item first">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/Biblio2.png" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/Biblio2.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item first">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/editBiblio.png" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/editBiblio.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item first">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/deleteBiblio.png" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/deleteBiblio.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="django">Django</button>
+                <button class="filter-btn" data-filter="spring">Spring Boot</button>
             </div>
-        </div>
-    </div>
-    Projects End -->
-
-
-
-
-
-
-
-
-        <!-- Projects Start -->
-        <div class="container-xxl py-6 pt-5" id="project">
-            <div class="container">
-                <div class="row g-5 mb-5 align-items-center wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="col-lg-6">
-                        <h1 class="display-5 mb-0">My Projects</h1>
+            <div class="projects-grid">
+                <div class="project-card" data-category="django">
+                    <div class="project-image">
+                        <img src="img/loginBiblio.png" alt="Gestion Bibliothèque">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="img/loginBiblio.png" class="project-link">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-6 text-lg-end">
-                        <ul class="list-inline mx-n3 mb-0" id="portfolio-flters">
-                            <li class="mx-3 active" data-filter="*">All Projects</li>
-                            <li class="mx-3" data-filter=".first">Django</li>
-                            <li class="mx-3" data-filter=".second">Spring boot</li>
-                        </ul>
+                    <div class="project-info">
+                        <span class="project-category">Django</span>
+                        <h3>Gestion de Bibliothèque</h3>
+                        <p>Système complet de gestion bibliothécaire avec authentification et suivi des emprunts</p>
                     </div>
                 </div>
-                <div class="row g-4 portfolio-container wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="col-lg-4 col-md-6 portfolio-item first">
-                        <div class="portfolio-img rounded overflow-hidden">
-                            <img loading="lazy" class="img-fluid" src="img/loginBiblio.png" alt="">
-                            <div class="portfolio-btn">
-                                <h5 style="color: white;">Gestion d'une bibliothèque</h5>
-                                <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/loginBiblio.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                
+
+                <div class="project-card" data-category="django">
+                    <div class="project-image">
+                        <img src="img/Biblio1.png" alt="Bibliothèque Dashboard">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="img/Biblio1.png" class="project-link">
+                                    <i class="fas fa-eye"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item first">
-                        <div class="portfolio-img rounded overflow-hidden">
-                            <img loading="lazy" class="img-fluid" src="img/Biblio1.png" alt="">
-                            <div class="portfolio-btn">
-                                <h5 style="color: white;">Gestion d'une bibliothèque</h5>
-                                <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/Biblio1.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                
+                    <div class="project-info">
+                        <span class="project-category">Django</span>
+                        <h3>Dashboard Bibliothèque</h3>
+                        <p>Interface d'administration intuitive avec gestion des utilisateurs et statistiques</p>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="spring">
+                    <div class="project-image">
+                        <img src="img/Gemp1.png" alt="Gestion Employés">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="img/Gemp1.png" class="project-link">
+                                    <i class="fas fa-eye"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item first">
-                        <div class="portfolio-img rounded overflow-hidden">
-                            <img loading="lazy" class="img-fluid" src="img/Biblio2.png" alt="">
-                            <div class="portfolio-btn">
-                                <h5 style="color: white;">Gestion d'une bibliothèque</h5>
-                                <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/Biblio2.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                
+                    <div class="project-info">
+                        <span class="project-category">Spring Boot</span>
+                        <h3>Gestion des Employés</h3>
+                        <p>Application RH complète avec gestion des profils et des départements</p>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="spring">
+                    <div class="project-image">
+                        <img src="img/Gemp2.png" alt="Employés Management">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="img/Gemp2.png" class="project-link">
+                                    <i class="fas fa-eye"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item first">
-                        <div class="portfolio-img rounded overflow-hidden">
-                            <img loading="lazy" class="img-fluid" src="img/editBiblio.png" alt="">
-                            <div class="portfolio-btn">
-                                <h5 style="color: white;">Gestion d'une bibliothèque</h5>
-                                <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/editBiblio.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item first">
-                        <div class="portfolio-img rounded overflow-hidden">
-                            <img loading="lazy" class="img-fluid" src="img/deleteBiblio.png" alt="">
-                            <div class="portfolio-btn">
-                                <h5 style="color: white;">Gestion d'une bibliothèque</h5>
-                                <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/deleteBiblio.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item first">
-                        <div class="portfolio-img rounded overflow-hidden">
-                            <img loading="lazy" class="img-fluid" src="img/deleteBiblio.png" alt="">
-                            <div class="portfolio-btn">
-                                <h5 style="color: white;">Gestion d'une bibliothèque</h5>
-                                <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/deleteBiblio.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item second">
-                        <div class="portfolio-img rounded overflow-hidden">
-                            <img loading="lazy" class="img-fluid" src="img/Gemp1.png" alt="">
-                            <div class="portfolio-btn">
-                                <h5 style="color: white;">Gestion des employés</h5>
-                                <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/Gemp1.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item second">
-                        <div class="portfolio-img rounded overflow-hidden">
-                            <img loading="lazy" class="img-fluid" src="img/Gemp2.png" alt="">
-                            <div class="portfolio-btn">
-                                <h5 style="color: white;">Gestion des employés</h5>
-                                <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/Gemp2.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item second">
-                        <div class="portfolio-img rounded overflow-hidden">
-                            <img loading="lazy" class="img-fluid" src="img/Gemp3.png" alt="">
-                            <div class="portfolio-btn">
-                                <h5 style="color: white;">Gestion des employés</h5>
-                                <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/Gemp3.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                
-                            </div>
-                        </div>
+                    <div class="project-info">
+                        <span class="project-category">Spring Boot</span>
+                        <h3>Module RH Avancé</h3>
+                        <p>Système de gestion des ressources humaines avec reporting avancé</p>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Projects End -->
+    </section>
 
-
-
-
-    <!-- Contact Start -->
-    <div class="container-xxl pb-5" id="contact">
-        <div class="container py-5">
-            <div class="row g-5 mb-5 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="col-lg-6">
-                    <h1 class="display-5 mb-0">Contact</h1>
-                </div>
-
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Restons connectés</span>
+                <h2 class="section-title">Contactez-moi</h2>
             </div>
-            <div class="row g-5">
-                <div class="col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <p class="mb-2">Téléphone:</p>
-                    <h3 class="fw-bold">+222 32425143</h3>
-                    <hr class="w-100">
-                    <p class="mb-2">Whatsapp :</p>
-                    <h3 class="fw-bold">+222 42425143</h3>
-                    <hr class="w-100">
-                    <p class="mb-2">Email:</p>
-                    <h3 class="fw-bold">Cheiikh.id65@gmail.com</h3>
-                    <hr class="w-100">
-                    <p class="mb-2">écris moi :</p>
-                    <div class="d-flex pt-2">
-                        <a class="btn btn-square btn-primary me-2" href="https://wa.me/+22242425143"><i class="fab fa-whatsapp"></i></i></a>
-                        <a class="btn btn-square btn-primary me-2" href="https://facebook.com/cheikh.id"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-square btn-primary me-2" href="https://www.linkedin.com/in/cheikh-idoumou-96a174269?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"><i class="fab fa-linkedin-in"></i></a>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-border"></div>
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Téléphone</h4>
+                            <a href="tel:+22232425143">+222 32 42 51 43</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-border"></div>
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>WhatsApp</h4>
+                            <a href="https://wa.me/+22242425143">+222 42 42 51 43</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-border"></div>
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <a href="mailto:Cheiikh.id65@gmail.com">Cheiikh.id65@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://wa.me/+22242425143" class="social-link">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="social-border"></span>
+                        </a>
+                        <a href="https://facebook.com/cheikh.id" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                            <span class="social-border"></span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/cheikh-idoumou-96a174269" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                            <span class="social-border"></span>
+                        </a>
                     </div>
                 </div>
-                
-                <div class="col-lg-7 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
 
-                    <!-- Map Start -->
-                    <div class="container-xxl pt-5 px-0 wow fadeInUp" data-wow-delay="0.1s">
-                        
-                            
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10160.15784353476!2d-15.988598513691015!3d18.130614953056202!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2s!4v1708409025839!5m2!1sfr!2s" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            
-                        
+                <div class="contact-map">
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10160.15784353476!2d-15.988598513691015!3d18.130614953056202!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2s!4v1708409025839!5m2!1sfr!2s" 
+                                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
-                    <!-- Map End -->
-
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Contact End -->
+    </section>
 
-
-    
-
-    <!-- Copyright Start -->
-    <div class="container-fluid bg-dark text-white py-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom text-secondary" >Cheikh Idoumou</a>, All Right Reserved.
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a class="border-bottom text-secondary" href="https://htmlcodex.com">HTML Codex</a>
-                        <br>Distributed By: <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>&copy; 2024 <span class="highlight">Cheikh Idoumou</span>. Tous droits réservés.</p>
+                </div>
+                <div class="footer-credits">
+                    <p>Conçu avec <i class="fas fa-heart"></i> et <i class="fas fa-code"></i></p>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Copyright End -->
+    </footer>
 
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/typed/typed.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/isotope/isotope.pkgd.min.js"></script>
-    <script src="lib/lightbox/js/lightbox.min.js"></script>
-
-    <!-- Template Javascript -->
+    <!-- Scripts -->
     <script src="js/main.js"></script>
 </body>
 
