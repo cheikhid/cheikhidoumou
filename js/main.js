@@ -1,178 +1,205 @@
-// ========================================
-// MODERN PORTFOLIO - JAVASCRIPT
-// ========================================
+// ============================================
+// CREATIVE PORTFOLIO - INTERACTIVE FEATURES
+// ============================================
 
 (function() {
     'use strict';
 
-    // ============= Loader =============
-    window.addEventListener('load', () => {
-        const loader = document.querySelector('.loader-wrapper');
-        setTimeout(() => {
-            loader.classList.add('fade-out');
-            setTimeout(() => {
-                loader.style.display = 'none';
-            }, 500);
-        }, 1000);
+    // ============= Custom Cursor =============
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let dotX = 0;
+    let dotY = 0;
+    let outlineX = 0;
+    let outlineY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
     });
 
-    // ============= Navigation =============
-    const navbar = document.querySelector('.navbar-modern');
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
-    const navLinks = document.querySelectorAll('.nav-link');
+    function animateCursor() {
+        // Smooth follow for dot
+        dotX += (mouseX - dotX) * 0.3;
+        dotY += (mouseY - dotY) * 0.3;
+        
+        // Slower follow for outline
+        outlineX += (mouseX - outlineX) * 0.15;
+        outlineY += (mouseY - outlineY) * 0.15;
+        
+        cursorDot.style.left = dotX + 'px';
+        cursorDot.style.top = dotY + 'px';
+        cursorOutline.style.left = outlineX + 'px';
+        cursorOutline.style.top = outlineY + 'px';
+        
+        requestAnimationFrame(animateCursor);
+    }
+    
+    animateCursor();
 
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    // Mobile menu toggle
-    navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-
-    // Close mobile menu on link click
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('active');
+    // Cursor hover effects
+    const hoverElements = document.querySelectorAll('a, button, .glass-card, .project-item, .hex-wrapper, .about-card-3d');
+    
+    hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            document.body.classList.add('cursor-hover');
+        });
+        
+        el.addEventListener('mouseleave', () => {
+            document.body.classList.remove('cursor-hover');
         });
     });
 
-    // Active nav link on scroll
-    const sections = document.querySelectorAll('section[id]');
-    
-    function scrollActive() {
-        const scrollY = window.pageYOffset;
+    // ============= Particles Background =============
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 50;
 
+    function createParticles() {
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            const size = Math.random() * 3 + 1;
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            const duration = Math.random() * 10 + 10;
+            const delay = Math.random() * 5;
+            
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.animationDuration = duration + 's';
+            particle.style.animationDelay = delay + 's';
+            
+            particlesContainer.appendChild(particle);
+        }
+    }
+
+    createParticles();
+
+    // ============= Loader =============
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.querySelector('.creative-loader').classList.add('hidden');
+        }, 2500);
+    });
+
+    // ============= Floating Navigation =============
+    const navDots = document.querySelectorAll('.nav-dot');
+    const sections = document.querySelectorAll('section[id]');
+
+    function updateActiveNav() {
+        const scrollY = window.pageYOffset;
+        
         sections.forEach(section => {
             const sectionHeight = section.offsetHeight;
-            const sectionTop = section.offsetTop - 100;
+            const sectionTop = section.offsetTop - 150;
             const sectionId = section.getAttribute('id');
-            const navLink = document.querySelector(`.nav-link[data-section="${sectionId}"]`);
-
+            
             if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                navLinks.forEach(link => link.classList.remove('active'));
-                if (navLink) navLink.classList.add('active');
+                navDots.forEach(dot => dot.classList.remove('active'));
+                const activeNav = document.querySelector(`.nav-dot[href="#${sectionId}"]`);
+                if (activeNav) activeNav.classList.add('active');
             }
         });
     }
 
-    window.addEventListener('scroll', scrollActive);
+    window.addEventListener('scroll', updateActiveNav);
 
-    // Smooth scroll for anchor links
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+    navDots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = link.getAttribute('href');
+            const targetId = dot.getAttribute('href');
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80;
                 window.scrollTo({
-                    top: offsetTop,
+                    top: targetSection.offsetTop,
                     behavior: 'smooth'
                 });
             }
         });
     });
 
-    // ============= Typing Effect =============
-    const typingText = document.querySelector('.typing-text');
-    const texts = [
-        'Développeur Django',
-        'Développeur Spring Boot',
-        'Développeur .NET',
-        'Expert Python',
-        'Expert Java',
-        'Expert C#'
-    ];
-    
-    let textIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typingSpeed = 100;
+    // ============= Holographic Card Glow Effect =============
+    const holographicCard = document.querySelector('.holographic-card');
+    const cardGlow = document.querySelector('.card-glow');
 
-    function type() {
-        const currentText = texts[textIndex];
-        
-        if (isDeleting) {
-            typingText.textContent = currentText.substring(0, charIndex - 1);
-            charIndex--;
-            typingSpeed = 50;
-        } else {
-            typingText.textContent = currentText.substring(0, charIndex + 1);
-            charIndex++;
-            typingSpeed = 100;
-        }
-
-        if (!isDeleting && charIndex === currentText.length) {
-            isDeleting = true;
-            typingSpeed = 2000;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            textIndex = (textIndex + 1) % texts.length;
-            typingSpeed = 500;
-        }
-
-        setTimeout(type, typingSpeed);
+    if (holographicCard && cardGlow) {
+        holographicCard.addEventListener('mousemove', (e) => {
+            const rect = holographicCard.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            cardGlow.style.setProperty('--x', x + '%');
+            cardGlow.style.setProperty('--y', y + '%');
+        });
     }
 
-    // Start typing effect after loader
-    setTimeout(() => {
-        type();
-    }, 1500);
+    // ============= Animated Role Typing =============
+    const animatedRole = document.querySelector('.animated-role');
+    const roles = [
+        'Backend Developer',
+        'Django Expert',
+        'Spring Boot Developer',
+        '.NET Specialist',
+        'DevOps Engineer'
+    ];
+    
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    
+    function typeRole() {
+        const currentRole = roles[roleIndex];
+        
+        if (isDeleting) {
+            animatedRole.textContent = currentRole.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            animatedRole.textContent = currentRole.substring(0, charIndex + 1);
+            charIndex++;
+        }
+        
+        let typeSpeed = 100;
+        
+        if (isDeleting) {
+            typeSpeed = 50;
+        }
+        
+        if (!isDeleting && charIndex === currentRole.length) {
+            isDeleting = true;
+            typeSpeed = 2000;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+            typeSpeed = 500;
+        }
+        
+        setTimeout(typeRole, typeSpeed);
+    }
+    
+    if (animatedRole) {
+        setTimeout(typeRole, 3000);
+    }
 
-    // ============= Scroll Animations =============
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-                
-                // Animate skill bars
-                if (entry.target.classList.contains('skill-card')) {
-                    const progressBar = entry.target.querySelector('.skill-progress');
-                    const progress = progressBar.getAttribute('data-progress');
-                    progressBar.style.width = progress + '%';
-                }
-                
-                // Animate stats
-                if (entry.target.classList.contains('stat-card')) {
-                    animateValue(entry.target.querySelector('.stat-number'), 0, 
-                        parseInt(entry.target.querySelector('.stat-number').textContent), 2000);
-                }
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements
-    document.querySelectorAll('.skill-card, .stat-card, .service-card, .project-card, .timeline-item').forEach(el => {
-        observer.observe(el);
-    });
-
-    // ============= Animate Numbers =============
-    function animateValue(element, start, end, duration) {
-        const range = end - start;
-        const increment = range / (duration / 16);
+    // ============= Stat Counter Animation =============
+    function animateCounter(element, target) {
+        const duration = 2000;
+        const start = 0;
+        const increment = target / (duration / 16);
         let current = start;
         const isPercentage = element.textContent.includes('%');
         const isPlus = element.textContent.includes('+');
         
         const timer = setInterval(() => {
             current += increment;
-            if (current >= end) {
-                current = end;
+            if (current >= target) {
+                current = target;
                 clearInterval(timer);
             }
             
@@ -184,58 +211,97 @@
         }, 16);
     }
 
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (entry.target.classList.contains('stat-value')) {
+                    const target = parseInt(entry.target.textContent);
+                    animateCounter(entry.target, target);
+                    observer.unobserve(entry.target);
+                }
+                
+                entry.target.classList.add('fade-in');
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.stat-value, .about-card-3d, .hex-wrapper, .glass-card, .project-item, .info-card-modern').forEach(el => {
+        observer.observe(el);
+    });
+
+    // ============= 3D Tilt Effect for Glass Cards =============
+    const glassCards = document.querySelectorAll('.glass-card[data-tilt]');
+    
+    glassCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.02)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+        });
+    });
+
     // ============= Projects Filter =============
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
+    const filterChips = document.querySelectorAll('.filter-chip');
+    const projectItems = document.querySelectorAll('.project-item');
 
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Update active button
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const filter = btn.getAttribute('data-filter');
-
-            projectCards.forEach(card => {
-                const category = card.getAttribute('data-category');
+    filterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            // Update active chip
+            filterChips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            
+            const filter = chip.getAttribute('data-filter');
+            
+            projectItems.forEach(item => {
+                const category = item.getAttribute('data-category');
                 
                 if (filter === 'all' || category === filter) {
-                    card.style.display = 'block';
+                    item.style.display = 'block';
                     setTimeout(() => {
-                        card.classList.add('fade-in');
+                        item.classList.add('fade-in');
                     }, 100);
                 } else {
-                    card.style.display = 'none';
+                    item.style.display = 'none';
+                    item.classList.remove('fade-in');
                 }
             });
         });
     });
 
-    // ============= Lightbox for Images =============
-    const projectLinks = document.querySelectorAll('.project-link');
+    // ============= Lightbox for Project Images =============
+    const viewBtns = document.querySelectorAll('.view-btn');
     
-    projectLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+    viewBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
             e.preventDefault();
-            const imgSrc = link.getAttribute('href');
+            const imgSrc = btn.getAttribute('href');
             createLightbox(imgSrc);
         });
     });
 
     function createLightbox(imgSrc) {
         const lightbox = document.createElement('div');
-        lightbox.className = 'lightbox';
+        lightbox.className = 'lightbox-overlay';
         lightbox.innerHTML = `
-            <div class="lightbox-content">
-                <span class="lightbox-close">&times;</span>
-                <img src="${imgSrc}" alt="Project Image">
+            <div class="lightbox-wrapper">
+                <button class="lightbox-close">&times;</button>
+                <img src="${imgSrc}" alt="Project">
             </div>
         `;
         
-        document.body.appendChild(lightbox);
-        document.body.style.overflow = 'hidden';
-        
-        // Add styles
+        // Styles
         lightbox.style.cssText = `
             position: fixed;
             inset: 0;
@@ -244,11 +310,11 @@
             align-items: center;
             justify-content: center;
             z-index: 10000;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.3s;
         `;
         
-        const content = lightbox.querySelector('.lightbox-content');
-        content.style.cssText = `
+        const wrapper = lightbox.querySelector('.lightbox-wrapper');
+        wrapper.style.cssText = `
             position: relative;
             max-width: 90%;
             max-height: 90%;
@@ -258,32 +324,40 @@
         img.style.cssText = `
             max-width: 100%;
             max-height: 90vh;
-            border-radius: 10px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            border: 3px solid var(--gold);
+            box-shadow: 0 0 50px rgba(189, 159, 103, 0.5);
         `;
         
         const closeBtn = lightbox.querySelector('.lightbox-close');
         closeBtn.style.cssText = `
             position: absolute;
-            top: -40px;
+            top: -50px;
             right: 0;
-            font-size: 40px;
-            color: #fff;
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            color: var(--darker);
+            border: none;
+            border-radius: 50%;
+            font-size: 30px;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.3s;
         `;
         
         closeBtn.addEventListener('mouseenter', () => {
-            closeBtn.style.transform = 'rotate(90deg)';
+            closeBtn.style.transform = 'rotate(90deg) scale(1.1)';
         });
         
         closeBtn.addEventListener('mouseleave', () => {
-            closeBtn.style.transform = 'rotate(0)';
+            closeBtn.style.transform = 'rotate(0) scale(1)';
         });
         
-        // Close lightbox
+        document.body.appendChild(lightbox);
+        document.body.style.overflow = 'hidden';
+        
         const closeLightbox = () => {
-            lightbox.style.animation = 'fadeOut 0.3s ease';
+            lightbox.style.animation = 'fadeOut 0.3s';
             setTimeout(() => {
                 document.body.removeChild(lightbox);
                 document.body.style.overflow = '';
@@ -295,91 +369,87 @@
             if (e.target === lightbox) closeLightbox();
         });
         
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeLightbox();
+        document.addEventListener('keydown', function escapeHandler(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+                document.removeEventListener('keydown', escapeHandler);
+            }
         });
     }
+
+    // ============= Hexagon Hover Effect =============
+    const hexWrappers = document.querySelectorAll('.hex-wrapper');
+    
+    hexWrappers.forEach(hex => {
+        hex.addEventListener('mouseenter', () => {
+            // Scale up this hex
+            hex.style.transform = 'translateY(-10px) scale(1.1)';
+            hex.style.zIndex = '10';
+            
+            // Scale down neighbors slightly
+            hexWrappers.forEach(otherHex => {
+                if (otherHex !== hex) {
+                    otherHex.style.transform = 'translateY(0) scale(0.95)';
+                    otherHex.style.opacity = '0.5';
+                }
+            });
+        });
+        
+        hex.addEventListener('mouseleave', () => {
+            hexWrappers.forEach(otherHex => {
+                otherHex.style.transform = 'translateY(0) scale(1)';
+                otherHex.style.opacity = '1';
+                otherHex.style.zIndex = '1';
+            });
+        });
+    });
 
     // ============= Parallax Effect =============
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         
-        // Hero parallax
-        const heroGradient = document.querySelector('.hero-gradient');
-        if (heroGradient) {
-            heroGradient.style.transform = `translateY(${scrolled * 0.5}px)`;
+        // Parallax for profile frame
+        const profileFrame = document.querySelector('.profile-frame');
+        if (profileFrame) {
+            profileFrame.style.transform = `translateY(${scrolled * 0.1}px)`;
         }
         
-        // Floating badges parallax
-        document.querySelectorAll('.floating-badge').forEach((badge, index) => {
-            const speed = 0.3 + (index * 0.1);
-            badge.style.transform = `translateY(${scrolled * speed}px)`;
+        // Parallax for hexagons
+        hexWrappers.forEach((hex, index) => {
+            const speed = 0.05 + (index * 0.01);
+            hex.style.transform = `translateY(${scrolled * speed}px)`;
         });
     });
 
-    // ============= Cursor Trail Effect =============
-    let mouseX = 0;
-    let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
-
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    cursor.style.cssText = `
-        position: fixed;
-        width: 20px;
-        height: 20px;
-        border: 2px solid var(--primary-color);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9999;
-        transition: transform 0.2s, border-color 0.2s;
-    `;
-    document.body.appendChild(cursor);
-
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    function updateCursor() {
-        cursorX += (mouseX - cursorX) * 0.1;
-        cursorY += (mouseY - cursorY) * 0.1;
-        
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-        
-        requestAnimationFrame(updateCursor);
-    }
-    
-    updateCursor();
-
-    // Cursor hover effects
-    const interactiveElements = document.querySelectorAll('a, button, .project-card, .service-card, .skill-card');
-    
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.style.transform = 'scale(1.5)';
-            cursor.style.borderColor = 'var(--primary-color)';
-        });
-        
-        el.addEventListener('mouseleave', () => {
-            cursor.style.transform = 'scale(1)';
+    // ============= Smooth Scroll =============
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href !== '#' && href.length > 1) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            }
         });
     });
 
     // ============= Scroll to Top Button =============
     const scrollTopBtn = document.createElement('button');
-    scrollTopBtn.className = 'scroll-top';
+    scrollTopBtn.className = 'scroll-top-btn';
     scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
     scrollTopBtn.style.cssText = `
         position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 50px;
-        height: 50px;
-        background: var(--primary-color);
-        color: var(--secondary-color);
+        bottom: 40px;
+        right: 40px;
+        width: 60px;
+        height: 60px;
+        background: var(--gold);
+        color: var(--darker);
         border: none;
         border-radius: 50%;
         font-size: 20px;
@@ -388,9 +458,11 @@
         visibility: hidden;
         transition: all 0.3s;
         z-index: 999;
+        box-shadow: 0 5px 20px rgba(189, 159, 103, 0.4);
     `;
+    
     document.body.appendChild(scrollTopBtn);
-
+    
     window.addEventListener('scroll', () => {
         if (window.scrollY > 500) {
             scrollTopBtn.style.opacity = '1';
@@ -400,26 +472,25 @@
             scrollTopBtn.style.visibility = 'hidden';
         }
     });
-
+    
     scrollTopBtn.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     });
-
+    
     scrollTopBtn.addEventListener('mouseenter', () => {
-        scrollTopBtn.style.transform = 'translateY(-5px)';
-        scrollTopBtn.style.boxShadow = '0 10px 30px rgba(189, 159, 103, 0.4)';
+        scrollTopBtn.style.transform = 'translateY(-10px) scale(1.1)';
+        scrollTopBtn.style.boxShadow = '0 10px 30px rgba(189, 159, 103, 0.6)';
     });
-
+    
     scrollTopBtn.addEventListener('mouseleave', () => {
-        scrollTopBtn.style.transform = 'translateY(0)';
-        scrollTopBtn.style.boxShadow = 'none';
+        scrollTopBtn.style.transform = 'translateY(0) scale(1)';
+        scrollTopBtn.style.boxShadow = '0 5px 20px rgba(189, 159, 103, 0.4)';
     });
 
     // ============= Performance Optimizations =============
-    // Debounce function for scroll events
     function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -432,15 +503,65 @@
         };
     }
 
-    // Optimize scroll listeners
-    window.addEventListener('scroll', debounce(scrollActive, 100));
+    // Debounce scroll events
+    const debouncedScroll = debounce(updateActiveNav, 100);
+    window.addEventListener('scroll', debouncedScroll);
 
-    // ============= Console Message =============
-    console.log('%c👋 Salut! Bienvenue sur mon portfolio', 
-        'color: #bd9f67; font-size: 20px; font-weight: bold;');
-    console.log('%cCe portfolio a été conçu avec ❤️ et ☕', 
-        'color: #a0aec0; font-size: 14px;');
-    console.log('%cTechnologies: HTML5, CSS3, JavaScript (Vanilla)', 
-        'color: #bd9f67; font-size: 12px;');
+    // ============= Easter Egg - Konami Code =============
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let konamiIndex = 0;
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === konamiCode[konamiIndex]) {
+            konamiIndex++;
+            if (konamiIndex === konamiCode.length) {
+                activateEasterEgg();
+                konamiIndex = 0;
+            }
+        } else {
+            konamiIndex = 0;
+        }
+    });
+
+    function activateEasterEgg() {
+        document.body.style.animation = 'rainbow 2s linear infinite';
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes rainbow {
+                0% { filter: hue-rotate(0deg); }
+                100% { filter: hue-rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        setTimeout(() => {
+            document.body.style.animation = '';
+            document.head.removeChild(style);
+        }, 5000);
+        
+        console.log('🎉 Easter Egg Activated! You found the secret!');
+    }
+
+    // ============= Console Art =============
+    console.log('%c' +
+        '  ╔═══════════════════════════════════╗\n' +
+        '  ║   CHEIKH IDOUMOU - PORTFOLIO     ║\n' +
+        '  ║   Backend Developer & DevOps     ║\n' +
+        '  ╚═══════════════════════════════════╝',
+        'color: #bd9f67; font-size: 14px; font-weight: bold;'
+    );
+    
+    console.log('%cWelcome to my creative portfolio! 🚀', 
+        'color: #bd9f67; font-size: 16px; font-weight: bold;'
+    );
+    
+    console.log('%cTech Stack: HTML5, CSS3, JavaScript (Vanilla)', 
+        'color: #94a3b8; font-size: 12px;'
+    );
+    
+    console.log('%cTry the Konami Code for a surprise! ⬆️⬆️⬇️⬇️⬅️➡️⬅️➡️BA', 
+        'color: #22c55e; font-size: 12px; font-style: italic;'
+    );
 
 })();
