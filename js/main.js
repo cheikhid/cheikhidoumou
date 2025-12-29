@@ -1,23 +1,23 @@
 // ============================================
-// CREATIVE PORTFOLIO - JAVASCRIPT PERFECTIONNÉ
+// PORTFOLIO MORPHIQUE - JAVASCRIPT OPTIMISÉ
+// ============================================
+// Performance-first + Mobile optimized
 // ============================================
 
 (function() {
     'use strict';
 
     // ============================================
-    // CONFIGURATION & CONSTANTS
+    // CONFIGURATION
     // ============================================
     const CONFIG = {
         particles: {
-            count: 50,
+            count: window.innerWidth < 768 ? 30 : 50,
             minSize: 1,
-            maxSize: 3,
-            minDuration: 10,
-            maxDuration: 20
+            maxSize: 3
         },
         loader: {
-            hideDelay: 2500
+            hideDelay: 2000
         },
         roles: [
             'Backend Developer',
@@ -30,12 +30,7 @@
         roleTyping: {
             typeSpeed: 100,
             deleteSpeed: 50,
-            pauseDuration: 2000,
-            startDelay: 3000
-        },
-        scroll: {
-            threshold: 0.2,
-            navUpdateThrottle: 100
+            pauseDuration: 2000
         }
     };
 
@@ -43,25 +38,15 @@
     // UTILITY FUNCTIONS
     // ============================================
     
-    /**
-     * Debounce function pour optimiser les événements fréquents
-     */
-    function debounce(func, wait) {
+    const debounce = (func, wait) => {
         let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
+        return function(...args) {
             clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
+            timeout = setTimeout(() => func.apply(this, args), wait);
         };
-    }
+    };
 
-    /**
-     * Throttle function pour limiter l'exécution
-     */
-    function throttle(func, limit) {
+    const throttle = (func, limit) => {
         let inThrottle;
         return function(...args) {
             if (!inThrottle) {
@@ -70,36 +55,27 @@
                 setTimeout(() => inThrottle = false, limit);
             }
         };
-    }
+    };
 
-    /**
-     * Vérifier si un élément est visible dans le viewport
-     */
-    function isInViewport(element, threshold = 0) {
+    const isInViewport = (element) => {
         const rect = element.getBoundingClientRect();
         return (
-            rect.top >= -threshold &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + threshold &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            rect.top < window.innerHeight &&
+            rect.bottom > 0
         );
-    }
+    };
 
-    /**
-     * Générer un nombre aléatoire entre min et max
-     */
-    function randomBetween(min, max) {
+    const randomBetween = (min, max) => {
         return Math.random() * (max - min) + min;
-    }
+    };
 
     // ============================================
-    // CUSTOM CURSOR
+    // CUSTOM CURSOR (Desktop only)
     // ============================================
     const CustomCursor = {
         init() {
-            // Vérifier si c'est un appareil tactile
-            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-                return; // Ne pas initialiser le curseur sur mobile
+            if (window.innerWidth < 1024 || !matchMedia('(hover: hover)').matches) {
+                return;
             }
 
             this.cursorDot = document.querySelector('.cursor-dot');
@@ -122,11 +98,10 @@
             document.addEventListener('mousemove', (e) => {
                 this.mouseX = e.clientX;
                 this.mouseY = e.clientY;
-            });
+            }, { passive: true });
 
-            // Ajouter effet hover
             const hoverElements = document.querySelectorAll(
-                'a, button, .glass-card, .project-item, .hex-wrapper, .about-card-3d, .filter-chip'
+                'a, button, .morph-card, .filter-btn, .view-btn'
             );
             
             hoverElements.forEach(el => {
@@ -141,11 +116,8 @@
         },
 
         animate() {
-            // Smooth follow pour le point
             this.dotX += (this.mouseX - this.dotX) * 0.3;
             this.dotY += (this.mouseY - this.dotY) * 0.3;
-            
-            // Slower follow pour le contour
             this.outlineX += (this.mouseX - this.outlineX) * 0.15;
             this.outlineY += (this.mouseY - this.outlineY) * 0.15;
             
@@ -167,10 +139,21 @@
             if (!this.container) return;
 
             this.createParticles();
+            
+            // Recréer les particules si la fenêtre est redimensionnée
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    this.container.innerHTML = '';
+                    CONFIG.particles.count = window.innerWidth < 768 ? 30 : 50;
+                    this.createParticles();
+                }, 250);
+            });
         },
 
         createParticles() {
-            const { count, minSize, maxSize, minDuration, maxDuration } = CONFIG.particles;
+            const { count, minSize, maxSize } = CONFIG.particles;
             const fragment = document.createDocumentFragment();
 
             for (let i = 0; i < count; i++) {
@@ -180,15 +163,16 @@
                 const size = randomBetween(minSize, maxSize);
                 const x = randomBetween(0, window.innerWidth);
                 const y = randomBetween(0, window.innerHeight);
-                const duration = randomBetween(minDuration, maxDuration);
+                const duration = randomBetween(10, 20);
                 const delay = randomBetween(0, 5);
                 
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                particle.style.left = x + 'px';
-                particle.style.top = y + 'px';
-                particle.style.animationDuration = duration + 's';
-                particle.style.animationDelay = delay + 's';
+                particle.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    animation: float ${duration}s ease-in-out ${delay}s infinite;
+                `;
                 
                 fragment.appendChild(particle);
             }
@@ -202,40 +186,35 @@
     // ============================================
     const Loader = {
         init() {
-            this.loader = document.querySelector('.creative-loader');
+            this.loader = document.querySelector('.morph-loader');
             if (!this.loader) return;
 
             window.addEventListener('load', () => {
-                setTimeout(() => {
-                    this.hide();
-                }, CONFIG.loader.hideDelay);
+                setTimeout(() => this.hide(), CONFIG.loader.hideDelay);
             });
         },
 
         hide() {
             this.loader.classList.add('hidden');
-            // Permettre le focus après le chargement
-            document.body.style.overflow = '';
         }
     };
 
     // ============================================
-    // SCROLL PROGRESS BAR
+    // SCROLL PROGRESS
     // ============================================
     const ScrollProgress = {
         init() {
-            this.progressBar = document.querySelector('.scroll-progress-bar');
+            this.progressBar = document.querySelector('.scroll-bar');
             if (!this.progressBar) return;
 
             const updateProgress = () => {
-                const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
                 const scrolled = (window.scrollY / windowHeight) * 100;
                 this.progressBar.style.width = scrolled + '%';
-                this.progressBar.parentElement.setAttribute('aria-valuenow', Math.round(scrolled));
             };
 
-            window.addEventListener('scroll', throttle(updateProgress, 50));
-            updateProgress(); // Initial call
+            window.addEventListener('scroll', throttle(updateProgress, 50), { passive: true });
+            updateProgress();
         }
     };
 
@@ -250,11 +229,10 @@
             if (this.navDots.length === 0 || this.sections.length === 0) return;
 
             this.bindEvents();
-            this.updateActiveNav(); // Initial call
+            this.updateActiveNav();
         },
 
         bindEvents() {
-            // Smooth scroll au clic
             this.navDots.forEach(dot => {
                 dot.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -262,23 +240,19 @@
                     const targetSection = document.querySelector(targetId);
                     
                     if (targetSection) {
-                        const offsetTop = targetSection.offsetTop - 80; // Offset pour le header
-                        window.scrollTo({
-                            top: offsetTop,
-                            behavior: 'smooth'
-                        });
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 });
             });
 
-            // Update au scroll
             window.addEventListener('scroll', 
-                debounce(() => this.updateActiveNav(), CONFIG.scroll.navUpdateThrottle)
+                debounce(() => this.updateActiveNav(), 100), 
+                { passive: true }
             );
         },
 
         updateActiveNav() {
-            const scrollY = window.scrollY + 150; // Offset
+            const scrollY = window.scrollY + 150;
             
             this.sections.forEach(section => {
                 const sectionTop = section.offsetTop;
@@ -312,42 +286,41 @@
         },
 
         bindEvents() {
-            // Toggle menu
             this.toggle.addEventListener('click', () => this.toggleMenu());
             
-            // Close button
             if (this.closeBtn) {
                 this.closeBtn.addEventListener('click', () => this.closeMenu());
             }
 
-            // Close au clic sur un lien
             const menuLinks = this.menu.querySelectorAll('a');
             menuLinks.forEach(link => {
-                link.addEventListener('click', () => {
+                link.addEventListener('click', (e) => {
                     this.closeMenu();
-                    // Permettre la navigation
-                    setTimeout(() => {
-                        const href = link.getAttribute('href');
-                        if (href && href.startsWith('#')) {
+                    
+                    // Smooth scroll
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        setTimeout(() => {
                             const target = document.querySelector(href);
                             if (target) {
-                                target.scrollIntoView({ behavior: 'smooth' });
+                                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                             }
-                        }
-                    }, 300);
+                        }, 300);
+                    }
                 });
             });
 
-            // Close au clic en dehors
-            this.menu.addEventListener('click', (e) => {
-                if (e.target === this.menu) {
+            // Close on escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && this.menu.classList.contains('active')) {
                     this.closeMenu();
                 }
             });
 
-            // Close avec Escape
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && this.menu.classList.contains('active')) {
+            // Close on outside click
+            this.menu.addEventListener('click', (e) => {
+                if (e.target === this.menu) {
                     this.closeMenu();
                 }
             });
@@ -367,28 +340,27 @@
     };
 
     // ============================================
-    // HOLOGRAPHIC CARD GLOW EFFECT
+    // MORPH CARD GLOW EFFECT
     // ============================================
-    const HolographicCard = {
+    const MorphCardGlow = {
         init() {
-            this.card = document.querySelector('.holographic-card');
-            this.glow = document.querySelector('.card-glow');
+            const cards = document.querySelectorAll('.morph-card');
             
-            if (!this.card || !this.glow) return;
-
-            this.card.addEventListener('mousemove', (e) => {
-                const rect = this.card.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                
-                this.glow.style.setProperty('--x', x + '%');
-                this.glow.style.setProperty('--y', y + '%');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    
+                    card.style.setProperty('--x', x + '%');
+                    card.style.setProperty('--y', y + '%');
+                });
             });
         }
     };
 
     // ============================================
-    // ANIMATED ROLE TYPING
+    // ROLE TYPING ANIMATION
     // ============================================
     const RoleTyping = {
         init() {
@@ -400,7 +372,7 @@
             this.charIndex = 0;
             this.isDeleting = false;
             
-            setTimeout(() => this.type(), CONFIG.roleTyping.startDelay);
+            setTimeout(() => this.type(), 1000);
         },
 
         type() {
@@ -451,19 +423,15 @@
                         observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: CONFIG.scroll.threshold });
+            }, { threshold: 0.5 });
 
             this.counters.forEach(counter => observer.observe(counter));
         },
 
         animateCounter(element, target) {
             const duration = 2000;
-            const start = 0;
             const increment = target / (duration / 16);
-            let current = start;
-            const originalText = element.textContent;
-            const hasPlus = originalText.includes('+');
-            const hasPercent = originalText.includes('%');
+            let current = 0;
             
             const timer = setInterval(() => {
                 current += increment;
@@ -471,12 +439,7 @@
                     current = target;
                     clearInterval(timer);
                 }
-                
-                let displayValue = Math.floor(current);
-                if (hasPlus) displayValue += '+';
-                if (hasPercent) displayValue += '%';
-                
-                element.textContent = displayValue;
+                element.textContent = Math.floor(current);
             }, 16);
         }
     };
@@ -487,7 +450,7 @@
     const AnimateOnScroll = {
         init() {
             this.elements = document.querySelectorAll(
-                '.about-card-3d, .hex-wrapper, .glass-card, .project-item, .info-card-modern, .edu-item'
+                '.morph-card, .skill-card'
             );
             
             if (this.elements.length === 0) return;
@@ -500,11 +463,20 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('fade-in');
-                        // Ne pas unobserve pour permettre la répétition si nécessaire
+                        
+                        // Animate skill bars
+                        if (entry.target.classList.contains('skill-card')) {
+                            entry.target.classList.add('visible');
+                            const fill = entry.target.querySelector('.skill-fill');
+                            if (fill) {
+                                const percent = fill.getAttribute('data-percent');
+                                fill.style.setProperty('--percent', percent + '%');
+                            }
+                        }
                     }
                 });
             }, { 
-                threshold: CONFIG.scroll.threshold,
+                threshold: 0.2,
                 rootMargin: '0px 0px -50px 0px'
             });
 
@@ -513,82 +485,43 @@
     };
 
     // ============================================
-    // 3D TILT EFFECT
-    // ============================================
-    const TiltEffect = {
-        init() {
-            this.cards = document.querySelectorAll('.glass-card[data-tilt]');
-            if (this.cards.length === 0) return;
-
-            this.bindEvents();
-        },
-
-        bindEvents() {
-            this.cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => this.handleTilt(e, card));
-                card.addEventListener('mouseleave', () => this.resetTilt(card));
-            });
-        },
-
-        handleTilt(e, card) {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 10;
-            const rotateY = (centerX - x) / 10;
-            
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.02)`;
-        },
-
-        resetTilt(card) {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
-        }
-    };
-
-    // ============================================
     // PROJECTS FILTER
     // ============================================
     const ProjectsFilter = {
         init() {
-            this.filterChips = document.querySelectorAll('.filter-chip');
-            this.projectItems = document.querySelectorAll('.project-item');
+            this.filterBtns = document.querySelectorAll('.filter-btn');
+            this.projectCards = document.querySelectorAll('.project-card');
             
-            if (this.filterChips.length === 0 || this.projectItems.length === 0) return;
+            if (this.filterBtns.length === 0 || this.projectCards.length === 0) return;
 
             this.bindEvents();
         },
 
         bindEvents() {
-            this.filterChips.forEach(chip => {
-                chip.addEventListener('click', () => this.filter(chip));
+            this.filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => this.filter(btn));
             });
         },
 
-        filter(activeChip) {
-            // Update active chip
-            this.filterChips.forEach(chip => {
-                chip.classList.remove('active');
-                chip.setAttribute('aria-pressed', 'false');
+        filter(activeBtn) {
+            // Update active button
+            this.filterBtns.forEach(btn => {
+                btn.classList.remove('active');
             });
-            activeChip.classList.add('active');
-            activeChip.setAttribute('aria-pressed', 'true');
+            activeBtn.classList.add('active');
             
-            const filter = activeChip.getAttribute('data-filter');
+            const filter = activeBtn.getAttribute('data-filter');
             
-            // Filter projects
-            this.projectItems.forEach(item => {
-                const category = item.getAttribute('data-category');
+            // Filter projects with animation
+            this.projectCards.forEach(card => {
+                const category = card.getAttribute('data-category');
                 
                 if (filter === 'all' || category === filter) {
-                    item.style.display = 'block';
-                    setTimeout(() => item.classList.add('fade-in'), 100);
+                    card.style.display = 'flex';
+                    setTimeout(() => card.classList.add('fade-in'), 50);
                 } else {
-                    item.style.display = 'none';
-                    item.classList.remove('fade-in');
+                    card.classList.remove('fade-in');
+                    setTimeout(() => card.style.display = 'none', 300);
                 }
             });
         }
@@ -608,8 +541,8 @@
         bindEvents() {
             this.viewBtns.forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const imgSrc = btn.getAttribute('href');
+                    e.stopPropagation();
+                    const imgSrc = btn.getAttribute('data-img');
                     this.open(imgSrc);
                 });
             });
@@ -620,32 +553,25 @@
             lightbox.className = 'lightbox-overlay';
             lightbox.setAttribute('role', 'dialog');
             lightbox.setAttribute('aria-modal', 'true');
-            lightbox.setAttribute('aria-label', 'Image en plein écran');
             
             lightbox.innerHTML = `
                 <div class="lightbox-wrapper">
                     <button class="lightbox-close" aria-label="Fermer">&times;</button>
-                    <img src="${imgSrc}" alt="Project en grand">
+                    <img src="${imgSrc}" alt="Projet en grand">
                 </div>
             `;
-            
-            // Styles
-            this.applyStyles(lightbox);
             
             document.body.appendChild(lightbox);
             document.body.style.overflow = 'hidden';
             
-            // Focus sur le bouton de fermeture
             const closeBtn = lightbox.querySelector('.lightbox-close');
             setTimeout(() => closeBtn.focus(), 100);
             
-            // Event listeners
             closeBtn.addEventListener('click', () => this.close(lightbox));
             lightbox.addEventListener('click', (e) => {
                 if (e.target === lightbox) this.close(lightbox);
             });
             
-            // Keyboard support
             const escapeHandler = (e) => {
                 if (e.key === 'Escape') {
                     this.close(lightbox);
@@ -661,99 +587,6 @@
                 document.body.removeChild(lightbox);
                 document.body.style.overflow = '';
             }, 300);
-        },
-
-        applyStyles(lightbox) {
-            lightbox.style.cssText = `
-                position: fixed;
-                inset: 0;
-                background: rgba(0, 0, 0, 0.95);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 10000;
-                animation: fadeIn 0.3s;
-            `;
-            
-            const wrapper = lightbox.querySelector('.lightbox-wrapper');
-            wrapper.style.cssText = `
-                position: relative;
-                max-width: 90%;
-                max-height: 90%;
-            `;
-            
-            const img = lightbox.querySelector('img');
-            img.style.cssText = `
-                max-width: 100%;
-                max-height: 90vh;
-                border-radius: 15px;
-                border: 3px solid #bd9f67;
-                box-shadow: 0 0 50px rgba(189, 159, 103, 0.5);
-            `;
-            
-            const closeBtn = lightbox.querySelector('.lightbox-close');
-            closeBtn.style.cssText = `
-                position: absolute;
-                top: -50px;
-                right: 0;
-                width: 50px;
-                height: 50px;
-                background: #bd9f67;
-                color: #0a0e27;
-                border: none;
-                border-radius: 50%;
-                font-size: 30px;
-                cursor: pointer;
-                transition: all 0.3s;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            `;
-            
-            closeBtn.addEventListener('mouseenter', () => {
-                closeBtn.style.transform = 'rotate(90deg) scale(1.1)';
-            });
-            
-            closeBtn.addEventListener('mouseleave', () => {
-                closeBtn.style.transform = 'rotate(0) scale(1)';
-            });
-        }
-    };
-
-    // ============================================
-    // SCROLL TO TOP BUTTON
-    // ============================================
-    const ScrollToTop = {
-        init() {
-            this.createButton();
-            this.bindEvents();
-        },
-
-        createButton() {
-            const btn = document.createElement('button');
-            btn.className = 'scroll-top-btn';
-            btn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-            btn.setAttribute('aria-label', 'Retour en haut de la page');
-            
-            document.body.appendChild(btn);
-            this.button = btn;
-        },
-
-        bindEvents() {
-            window.addEventListener('scroll', throttle(() => {
-                if (window.scrollY > 500) {
-                    this.button.classList.add('visible');
-                } else {
-                    this.button.classList.remove('visible');
-                }
-            }, 100));
-            
-            this.button.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
         }
     };
 
@@ -769,47 +602,14 @@
                         e.preventDefault();
                         const target = document.querySelector(href);
                         if (target) {
-                            const offsetTop = target.offsetTop - 80;
-                            window.scrollTo({
-                                top: offsetTop,
-                                behavior: 'smooth'
+                            target.scrollIntoView({ 
+                                behavior: 'smooth',
+                                block: 'start'
                             });
                         }
                     }
                 });
             });
-        }
-    };
-
-    // ============================================
-    // KEYBOARD NAVIGATION
-    // ============================================
-    const KeyboardNav = {
-        init() {
-            // Améliorer la navigation au clavier
-            document.addEventListener('keydown', (e) => {
-                // Tab trap dans le menu mobile si ouvert
-                const mobileMenu = document.querySelector('.mobile-nav.active');
-                if (mobileMenu && e.key === 'Tab') {
-                    this.trapFocus(e, mobileMenu);
-                }
-            });
-        },
-
-        trapFocus(e, container) {
-            const focusableElements = container.querySelectorAll(
-                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-            );
-            const firstElement = focusableElements[0];
-            const lastElement = focusableElements[focusableElements.length - 1];
-
-            if (e.shiftKey && document.activeElement === firstElement) {
-                e.preventDefault();
-                lastElement.focus();
-            } else if (!e.shiftKey && document.activeElement === lastElement) {
-                e.preventDefault();
-                firstElement.focus();
-            }
         }
     };
 
@@ -821,11 +621,9 @@
             const images = document.querySelectorAll('img[loading="lazy"]');
             
             if ('loading' in HTMLImageElement.prototype) {
-                // Le navigateur supporte le lazy loading natif
-                return;
+                return; // Native lazy loading supported
             }
             
-            // Fallback pour les navigateurs plus anciens
             const imageObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -841,24 +639,45 @@
     };
 
     // ============================================
+    // PERFORMANCE MONITORING
+    // ============================================
+    const PerformanceMonitor = {
+        init() {
+            if ('performance' in window) {
+                window.addEventListener('load', () => {
+                    setTimeout(() => {
+                        const perfData = performance.getEntriesByType('navigation')[0];
+                        console.log('⚡ Performance Metrics:');
+                        console.log(`  DOM Content Loaded: ${Math.round(perfData.domContentLoadedEventEnd)}ms`);
+                        console.log(`  Page Load Complete: ${Math.round(perfData.loadEventEnd)}ms`);
+                    }, 0);
+                });
+            }
+        }
+    };
+
+    // ============================================
     // CONSOLE ART
     // ============================================
     const ConsoleArt = {
         init() {
+            const styles = [
+                'color: #bd9f67',
+                'font-size: 14px',
+                'font-weight: bold',
+                'padding: 10px'
+            ].join(';');
+            
             console.log('%c' +
-                '  ╔═══════════════════════════════════╗\n' +
-                '  ║   CHEIKH IDOUMOU - PORTFOLIO     ║\n' +
-                '  ║   Backend Developer & DevOps     ║\n' +
-                '  ╚═══════════════════════════════════╝',
-                'color: #bd9f67; font-size: 14px; font-weight: bold;'
+                '╔════════════════════════════════╗\n' +
+                '║  CHEIKH IDOUMOU - PORTFOLIO  ║\n' +
+                '║  Backend Developer & DevOps   ║\n' +
+                '╚════════════════════════════════╝',
+                styles
             );
             
-            console.log('%cBienvenue sur mon portfolio! 🚀', 
-                'color: #bd9f67; font-size: 16px; font-weight: bold;'
-            );
-            
-            console.log('%cTech Stack: HTML5, CSS3, Vanilla JavaScript', 
-                'color: #94a3b8; font-size: 12px;'
+            console.log('%c🚀 Portfolio chargé avec succès!', 
+                'color: #22c55e; font-size: 14px; font-weight: bold;'
             );
         }
     };
@@ -867,7 +686,6 @@
     // INITIALIZATION
     // ============================================
     function init() {
-        // Attendre que le DOM soit prêt
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initializeApp);
         } else {
@@ -876,33 +694,28 @@
     }
 
     function initializeApp() {
-        // Initialiser tous les modules
+        // Initialize all modules
         CustomCursor.init();
         ParticlesBackground.init();
         Loader.init();
         ScrollProgress.init();
         FloatingNav.init();
         MobileMenu.init();
-        HolographicCard.init();
+        MorphCardGlow.init();
         RoleTyping.init();
         CounterAnimation.init();
         AnimateOnScroll.init();
-        TiltEffect.init();
         ProjectsFilter.init();
         Lightbox.init();
-        ScrollToTop.init();
         SmoothScroll.init();
-        KeyboardNav.init();
         LazyLoading.init();
+        PerformanceMonitor.init();
         ConsoleArt.init();
 
-        // Log de succès
-        console.log('%c✓ Portfolio initialisé avec succès', 
-            'color: #22c55e; font-weight: bold;'
-        );
+        console.log('✓ Tous les modules initialisés');
     }
 
-    // Démarrer l'application
+    // Start the application
     init();
 
 })();
