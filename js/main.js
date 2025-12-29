@@ -414,6 +414,9 @@
     // ============================================
     // MOBILE MENU - FOCUS TRAP ✅
     // ============================================
+    // ============================================
+    // MOBILE MENU - AVEC PARTICULES MORPHIQUES ✅
+    // ============================================
     const MobileMenu = {
         init() {
             this.toggle = document.querySelector('.mobile-menu-toggle');
@@ -425,7 +428,52 @@
             
             if (!this.toggle || !this.menu) return;
 
+            this.createBackdrop();
             this.bindEvents();
+        },
+
+        createBackdrop() {
+            this.backdrop = document.createElement('div');
+            this.backdrop.className = 'mobile-nav-backdrop';
+            document.body.appendChild(this.backdrop);
+            
+            const backdropClickHandler = () => this.closeMenu();
+            eventManager.add(this.backdrop, 'click', backdropClickHandler);
+        },
+
+        // ✅ Effet particules morphiques
+        createParticles() {
+            if (prefersReducedMotion()) return;
+            
+            const rect = this.toggle.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            // Créer 12 particules
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'mobile-nav-particle';
+                
+                const angle = (i / 12) * Math.PI * 2;
+                const distance = 100 + Math.random() * 50;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                particle.style.cssText = `
+                    left: ${centerX}px;
+                    top: ${centerY}px;
+                    --tx: ${tx}px;
+                    --ty: ${ty}px;
+                `;
+                
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    if (document.body.contains(particle)) {
+                        document.body.removeChild(particle);
+                    }
+                }, 800);
+            }
         },
 
         bindEvents() {
@@ -448,7 +496,10 @@
                         setTimeout(() => {
                             const target = document.querySelector(href);
                             if (target) {
-                                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                target.scrollIntoView({ 
+                                    behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+                                    block: 'start' 
+                                });
                             }
                         }, 300);
                     }
@@ -457,45 +508,45 @@
                 eventManager.add(link, 'click', linkHandler);
             });
 
-            // Close on escape
             const escapeHandler = (e) => {
                 if (e.key === 'Escape' && this.menu.classList.contains('active')) {
                     this.closeMenu();
                 }
             };
             eventManager.add(document, 'keydown', escapeHandler);
-
-            // Close on outside click
-            const outsideClickHandler = (e) => {
-                if (e.target === this.menu) {
-                    this.closeMenu();
-                }
-            };
-            eventManager.add(this.menu, 'click', outsideClickHandler);
         },
 
         toggleMenu() {
             const isActive = this.menu.classList.toggle('active');
+            
+            // ✅ Particules lors de l'ouverture
+            if (isActive) {
+                this.createParticles();
+            }
+            
+            this.backdrop.classList.toggle('active', isActive);
+            
             this.toggle.setAttribute('aria-expanded', isActive);
             this.menu.setAttribute('aria-hidden', !isActive);
-            document.body.style.overflow = isActive ? 'hidden' : '';
             
             if (isActive) {
+                document.body.classList.add('mobile-menu-open');
                 this.trapFocus();
             } else {
+                document.body.classList.remove('mobile-menu-open');
                 this.releaseFocus();
             }
         },
 
         closeMenu() {
             this.menu.classList.remove('active');
+            this.backdrop.classList.remove('active');
             this.toggle.setAttribute('aria-expanded', 'false');
             this.menu.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
+            document.body.classList.remove('mobile-menu-open');
             this.releaseFocus();
         },
 
-        // ✅ FOCUS TRAP IMPLEMENTATION
         trapFocus() {
             this.previousFocus = document.activeElement;
             
@@ -524,14 +575,13 @@
             
             eventManager.add(document, 'keydown', this.handleTabKey);
             
-            // Focus premier élément
             setTimeout(() => {
                 if (this.closeBtn) {
                     this.closeBtn.focus();
                 } else if (this.firstFocusable) {
                     this.firstFocusable.focus();
                 }
-            }, 100);
+            }, 500); // ✅ Délai augmenté pour attendre l'animation
         },
 
         releaseFocus() {
