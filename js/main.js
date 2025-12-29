@@ -1,7 +1,8 @@
 // ============================================
-// PORTFOLIO MORPHIQUE - JAVASCRIPT OPTIMISÉ
+// PORTFOLIO MORPHIQUE - JAVASCRIPT OPTIMISÉ V2
 // ============================================
 // Performance-first + Mobile optimized
+// UX: Transitions morphiques fluides
 // ============================================
 
 (function() {
@@ -31,6 +32,10 @@
             typeSpeed: 100,
             deleteSpeed: 50,
             pauseDuration: 2000
+        },
+        morphReveal: {
+            threshold: 0.15,
+            rootMargin: '0px 0px -80px 0px'
         }
     };
 
@@ -67,6 +72,67 @@
 
     const randomBetween = (min, max) => {
         return Math.random() * (max - min) + min;
+    };
+
+    // ============================================
+    // LAZY LOADING IMAGES WITH BLUR EFFECT
+    // ============================================
+    const LazyImageLoader = {
+        init() {
+            this.images = document.querySelectorAll('img[loading="lazy"]');
+            if (this.images.length === 0) return;
+
+            // Wrap images in lazy-image-wrapper if not already wrapped
+            this.images.forEach(img => {
+                if (!img.parentElement.classList.contains('lazy-image-wrapper')) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'lazy-image-wrapper';
+                    wrapper.style.borderRadius = getComputedStyle(img.parentElement).borderRadius || '16px';
+                    img.parentNode.insertBefore(wrapper, img);
+                    wrapper.appendChild(img);
+                }
+                img.classList.add('lazy-image');
+            });
+
+            // Native lazy loading support
+            if ('loading' in HTMLImageElement.prototype) {
+                this.images.forEach(img => {
+                    img.addEventListener('load', () => {
+                        img.classList.add('loaded');
+                    });
+                    
+                    // If image is already loaded (cached)
+                    if (img.complete) {
+                        img.classList.add('loaded');
+                    }
+                });
+                return;
+            }
+            
+            // Fallback: Intersection Observer
+            this.setupObserver();
+        },
+
+        setupObserver() {
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        
+                        img.addEventListener('load', () => {
+                            img.classList.add('loaded');
+                        });
+                        
+                        img.src = img.dataset.src || img.src;
+                        imageObserver.unobserve(img);
+                    }
+                });
+            }, { 
+                rootMargin: '50px'
+            });
+
+            this.images.forEach(img => imageObserver.observe(img));
+        }
     };
 
     // ============================================
@@ -445,42 +511,88 @@
     };
 
     // ============================================
-    // INTERSECTION OBSERVER FOR ANIMATIONS
+    // MORPHIC REVEAL ANIMATIONS - VERSION AMÉLIORÉE
     // ============================================
-    const AnimateOnScroll = {
+    const MorphReveal = {
         init() {
-            this.elements = document.querySelectorAll(
-                '.morph-card, .skill-card'
-            );
-            
-            if (this.elements.length === 0) return;
+            // Sélectionner tous les éléments à animer
+            this.revealElements = [
+                // Cards standards
+                ...document.querySelectorAll('.about-card'),
+                ...document.querySelectorAll('.skill-card'),
+                ...document.querySelectorAll('.service-card'),
+                ...document.querySelectorAll('.project-card'),
+                ...document.querySelectorAll('.contact-item'),
+                // Education items
+                ...document.querySelectorAll('.edu-item')
+            ];
 
+            if (this.revealElements.length === 0) return;
+
+            // Appliquer les classes d'animation appropriées
+            this.assignAnimationClasses();
+
+            // Setup Intersection Observer
             this.setupObserver();
+        },
+
+        assignAnimationClasses() {
+            this.revealElements.forEach((element, index) => {
+                // Pattern d'alternance pour créer un effet de vague
+                const pattern = index % 3;
+                
+                if (pattern === 0) {
+                    element.classList.add('morph-reveal');
+                } else if (pattern === 1) {
+                    element.classList.add('morph-reveal-left');
+                } else {
+                    element.classList.add('morph-reveal-right');
+                }
+
+                // Cas spéciaux
+                if (element.classList.contains('skill-card')) {
+                    // Skills: effet scale
+                    element.classList.remove('morph-reveal', 'morph-reveal-left', 'morph-reveal-right');
+                    element.classList.add('morph-reveal-scale');
+                }
+
+                if (element.classList.contains('service-card')) {
+                    // Services: alternance left-right
+                    const serviceIndex = [...document.querySelectorAll('.service-card')].indexOf(element);
+                    element.classList.remove('morph-reveal', 'morph-reveal-scale');
+                    element.classList.add(serviceIndex % 2 === 0 ? 'morph-reveal-left' : 'morph-reveal-right');
+                }
+            });
         },
 
         setupObserver() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in');
-                        
-                        // Animate skill bars
-                        if (entry.target.classList.contains('skill-card')) {
+                        // Petit délai pour un effet plus naturel
+                        setTimeout(() => {
                             entry.target.classList.add('visible');
-                            const fill = entry.target.querySelector('.skill-fill');
-                            if (fill) {
-                                const percent = fill.getAttribute('data-percent');
-                                fill.style.setProperty('--percent', percent + '%');
+                            
+                            // Animation des barres de compétences
+                            if (entry.target.classList.contains('skill-card')) {
+                                const fill = entry.target.querySelector('.skill-fill');
+                                if (fill) {
+                                    const percent = fill.getAttribute('data-percent');
+                                    fill.style.setProperty('--percent', percent + '%');
+                                }
                             }
-                        }
+                        }, 100);
+                        
+                        // Désactiver l'observation après l'animation
+                        observer.unobserve(entry.target);
                     }
                 });
             }, { 
-                threshold: 0.2,
-                rootMargin: '0px 0px -50px 0px'
+                threshold: CONFIG.morphReveal.threshold,
+                rootMargin: CONFIG.morphReveal.rootMargin
             });
 
-            this.elements.forEach(el => observer.observe(el));
+            this.revealElements.forEach(el => observer.observe(el));
         }
     };
 
@@ -513,14 +625,18 @@
             const filter = activeBtn.getAttribute('data-filter');
             
             // Filter projects with animation
-            this.projectCards.forEach(card => {
+            this.projectCards.forEach((card, index) => {
                 const category = card.getAttribute('data-category');
                 
                 if (filter === 'all' || category === filter) {
                     card.style.display = 'flex';
-                    setTimeout(() => card.classList.add('fade-in'), 50);
+                    // Réappliquer l'animation morphique
+                    card.classList.remove('visible');
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 50);
                 } else {
-                    card.classList.remove('fade-in');
+                    card.classList.remove('visible');
                     setTimeout(() => card.style.display = 'none', 300);
                 }
             });
@@ -557,7 +673,7 @@
             lightbox.innerHTML = `
                 <div class="lightbox-wrapper">
                     <button class="lightbox-close" aria-label="Fermer">&times;</button>
-                    <img src="${imgSrc}" alt="Projet en grand">
+                    <img src="${imgSrc}" alt="Projet en grand" class="lazy-image loaded">
                 </div>
             `;
             
@@ -614,31 +730,6 @@
     };
 
     // ============================================
-    // LAZY LOADING IMAGES
-    // ============================================
-    const LazyLoading = {
-        init() {
-            const images = document.querySelectorAll('img[loading="lazy"]');
-            
-            if ('loading' in HTMLImageElement.prototype) {
-                return; // Native lazy loading supported
-            }
-            
-            const imageObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src || img.src;
-                        imageObserver.unobserve(img);
-                    }
-                });
-            });
-
-            images.forEach(img => imageObserver.observe(img));
-        }
-    };
-
-    // ============================================
     // PERFORMANCE MONITORING
     // ============================================
     const PerformanceMonitor = {
@@ -650,6 +741,12 @@
                         console.log('⚡ Performance Metrics:');
                         console.log(`  DOM Content Loaded: ${Math.round(perfData.domContentLoadedEventEnd)}ms`);
                         console.log(`  Page Load Complete: ${Math.round(perfData.loadEventEnd)}ms`);
+                        
+                        // Web Vitals approximatifs
+                        const paintEntries = performance.getEntriesByType('paint');
+                        paintEntries.forEach(entry => {
+                            console.log(`  ${entry.name}: ${Math.round(entry.startTime)}ms`);
+                        });
                     }, 0);
                 });
             }
@@ -663,21 +760,26 @@
         init() {
             const styles = [
                 'color: #bd9f67',
-                'font-size: 14px',
+                'font-size: 16px',
                 'font-weight: bold',
-                'padding: 10px'
+                'padding: 10px',
+                'text-shadow: 2px 2px 4px rgba(0,0,0,0.5)'
             ].join(';');
             
             console.log('%c' +
-                '╔════════════════════════════════╗\n' +
-                '║  CHEIKH IDOUMOU - PORTFOLIO  ║\n' +
-                '║  Backend Developer & DevOps   ║\n' +
-                '╚════════════════════════════════╝',
+                '╔════════════════════════════════════╗\n' +
+                '║   CHEIKH IDOUMOU - PORTFOLIO V2  ║\n' +
+                '║   Backend Developer & DevOps      ║\n' +
+                '║   Morphic Design + Performance    ║\n' +
+                '╚════════════════════════════════════╝',
                 styles
             );
             
             console.log('%c🚀 Portfolio chargé avec succès!', 
                 'color: #22c55e; font-size: 14px; font-weight: bold;'
+            );
+            console.log('%c✨ Animations morphiques activées', 
+                'color: #bd9f67; font-size: 12px;'
             );
         }
     };
@@ -694,7 +796,10 @@
     }
 
     function initializeApp() {
+        console.log('🎬 Initialisation du portfolio...');
+
         // Initialize all modules
+        LazyImageLoader.init();
         CustomCursor.init();
         ParticlesBackground.init();
         Loader.init();
@@ -704,15 +809,15 @@
         MorphCardGlow.init();
         RoleTyping.init();
         CounterAnimation.init();
-        AnimateOnScroll.init();
+        MorphReveal.init(); // ⭐ Nouveau module d'animations morphiques
         ProjectsFilter.init();
         Lightbox.init();
         SmoothScroll.init();
-        LazyLoading.init();
         PerformanceMonitor.init();
         ConsoleArt.init();
 
-        console.log('✓ Tous les modules initialisés');
+        console.log('✅ Tous les modules initialisés');
+        console.log('🎨 Expérience utilisateur améliorée');
     }
 
     // Start the application
