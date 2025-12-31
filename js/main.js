@@ -1027,6 +1027,74 @@
     };
 
     // ============================================
+    // UI VERSE CARD MOBILE INTERACTION
+    // ============================================
+    const UIVerseCard = {
+        init() {
+            const card = document.querySelector('.ui-verse-card');
+            if (!card) return;
+
+            // Détection mobile/tactile
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+            if (isTouchDevice) {
+                let isActive = false;
+                let touchStartTime = 0;
+
+                // Toggle sur tap (pas sur scroll)
+                const touchStartHandler = () => {
+                    touchStartTime = Date.now();
+                };
+
+                const touchEndHandler = (e) => {
+                    const touchDuration = Date.now() - touchStartTime;
+
+                    // Si c'est un tap court (pas un scroll)
+                    if (touchDuration < 200) {
+                        e.preventDefault();
+                        isActive = !isActive;
+
+                        if (isActive) {
+                            card.classList.add('active');
+                        } else {
+                            card.classList.remove('active');
+                        }
+                    }
+                };
+
+                eventManager.add(card, 'touchstart', touchStartHandler, { passive: true });
+                eventManager.add(card, 'touchend', touchEndHandler, { passive: false });
+
+                // Fallback pour les appareils sans touch
+                const clickHandler = (e) => {
+                    if (!isTouchDevice) {
+                        e.preventDefault();
+                        isActive = !isActive;
+
+                        if (isActive) {
+                            card.classList.add('active');
+                        } else {
+                            card.classList.remove('active');
+                        }
+                    }
+                };
+
+                eventManager.add(card, 'click', clickHandler);
+
+                // Fermer si on touche ailleurs
+                const documentTouchHandler = (e) => {
+                    if (isActive && !card.contains(e.target)) {
+                        isActive = false;
+                        card.classList.remove('active');
+                    }
+                };
+
+                eventManager.add(document, 'touchstart', documentTouchHandler, { passive: true });
+            }
+        }
+    };
+
+    // ============================================
     // INITIALIZATION
     // ============================================
     function init() {
@@ -1055,12 +1123,13 @@
         ProjectsFilter.init();
         Lightbox.init();
         SmoothScroll.init();
+        UIVerseCard.init();
         PerformanceMonitor.init();
         ConsoleArt.init();
 
         console.log('✅ Tous les modules initialisés');
         console.log('🎨 UX optimisée et accessible');
-        
+
         // Cleanup on page unload
         window.addEventListener('beforeunload', () => {
             eventManager.cleanup();
