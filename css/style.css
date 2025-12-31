@@ -687,19 +687,18 @@ body {
     /* Padding avec safe area */
     padding: max(var(--spacing-md), env(safe-area-inset-top)) 
              var(--spacing-lg) 
-             max(var(--spacing-2xl), env(safe-area-inset-bottom)) 
+             max(var(--spacing-lg), env(safe-area-inset-bottom)) 
              var(--spacing-lg);
     
-    /* Animation morphique */
-    transform: translateX(100%) scale(0.8);
+    /* ✅ Animation morphique SANS affecter la disposition */
+    transform: translateX(100%);
     opacity: 0;
-    filter: blur(20px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     
-    /* Overflow */
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    /* ✅ BLOQUER SCROLL HORIZONTAL ET VERTICAL */
+    overflow: hidden;
+    max-width: 100%;
 }
 
 /* État ouvert - Animation fluide */
