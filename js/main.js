@@ -73,25 +73,6 @@
     // UTILITY FUNCTIONS
     // ============================================
     
-    const debounce = (func, wait) => {
-        let timeout;
-        return function(...args) {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(this, args), wait);
-        };
-    };
-
-    const throttle = (func, limit) => {
-        let inThrottle;
-        return function(...args) {
-            if (!inThrottle) {
-                func.apply(this, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        };
-    };
-
     const randomBetween = (min, max) => {
         return Math.random() * (max - min) + min;
     };
@@ -182,17 +163,20 @@
             this.dotY = 0;
             this.outlineX = 0;
             this.outlineY = 0;
+            this.running = false;
+            this.rafId = null;
+            this.animateBound = () => this.animate();
 
             this.bindEvents();
-            this.animate();
         },
 
         bindEvents() {
             const mouseMoveHandler = (e) => {
                 this.mouseX = e.clientX;
                 this.mouseY = e.clientY;
+                this.start();
             };
-            
+
             eventManager.add(document, 'mousemove', mouseMoveHandler, { passive: true });
 
             const hoverElements = document.querySelectorAll(
@@ -219,18 +203,37 @@
             eventManager.add(document, 'selectionchange', selectionChangeHandler);
         },
 
+        start() {
+            if (!this.running) {
+                this.running = true;
+                this.rafId = requestAnimationFrame(this.animateBound);
+            }
+        },
+
         animate() {
             this.dotX += (this.mouseX - this.dotX) * 0.3;
             this.dotY += (this.mouseY - this.dotY) * 0.3;
             this.outlineX += (this.mouseX - this.outlineX) * 0.15;
             this.outlineY += (this.mouseY - this.outlineY) * 0.15;
-            
-            this.cursorDot.style.left = this.dotX + 'px';
-            this.cursorDot.style.top = this.dotY + 'px';
-            this.cursorOutline.style.left = this.outlineX + 'px';
-            this.cursorOutline.style.top = this.outlineY + 'px';
-            
-            requestAnimationFrame(() => this.animate());
+
+            // ✅ PERF: transform (couche composite) au lieu de left/top (layout + paint)
+            this.cursorDot.style.transform =
+                `translate(${this.dotX}px, ${this.dotY}px) translate(-50%, -50%)`;
+            this.cursorOutline.style.transform =
+                `translate(${this.outlineX}px, ${this.outlineY}px) translate(-50%, -50%)`;
+
+            // ✅ PERF: stopper la boucle rAF quand le curseur a rejoint la souris
+            if (Math.abs(this.mouseX - this.dotX) < 0.1 &&
+                Math.abs(this.mouseY - this.dotY) < 0.1 &&
+                Math.abs(this.mouseX - this.outlineX) < 0.1 &&
+                Math.abs(this.mouseY - this.outlineY) < 0.1) {
+                this.dotX = this.outlineX = this.mouseX;
+                this.dotY = this.outlineY = this.mouseY;
+                this.running = false;
+                return;
+            }
+
+            this.rafId = requestAnimationFrame(this.animateBound);
         }
     };
 
@@ -347,14 +350,32 @@
             this.progressBar = document.querySelector('.scroll-bar');
             if (!this.progressBar) return;
 
-            const updateProgress = () => {
-                const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const scrolled = (window.scrollY / windowHeight) * 100;
+            this.maxScroll = 0;
+            this.ticking = false;
+
+            // ✅ PERF: scrollHeight calculé au load/resize, pas à chaque scroll (évite un reflow forcé)
+            const computeMax = () => {
+                this.maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            };
+
+            const render = () => {
+                this.ticking = false;
+                const scrolled = this.maxScroll > 0 ? (window.scrollY / this.maxScroll) * 100 : 0;
                 this.progressBar.style.width = scrolled + '%';
             };
 
-            eventManager.add(window, 'scroll', throttle(updateProgress, 50), { passive: true });
-            updateProgress();
+            const onScroll = () => {
+                if (!this.ticking) {
+                    this.ticking = true;
+                    requestAnimationFrame(render);
+                }
+            };
+
+            computeMax();
+            eventManager.add(window, 'scroll', onScroll, { passive: true });
+            eventManager.add(window, 'resize', () => { computeMax(); render(); }, { passive: true });
+            eventManager.add(window, 'load', computeMax);
+            render();
         }
     };
 
@@ -365,11 +386,25 @@
         init() {
             this.navDots = document.querySelectorAll('.nav-dot');
             this.sections = document.querySelectorAll('section[id]');
-            
+
             if (this.navDots.length === 0 || this.sections.length === 0) return;
 
+            this.offsets = [];
+            this.ticking = false;
+            this.activeId = null;
+
+            this.computeOffsets();
             this.bindEvents();
             this.updateActiveNav();
+        },
+
+        // ✅ PERF: offsets mesurés une fois (et au resize/load), pas à chaque scroll
+        computeOffsets() {
+            this.offsets = Array.from(this.sections).map(section => ({
+                id: section.getAttribute('id'),
+                top: section.offsetTop,
+                height: section.offsetHeight
+            }));
         },
 
         bindEvents() {
@@ -378,36 +413,44 @@
                     e.preventDefault();
                     const targetId = dot.getAttribute('href');
                     const targetSection = document.querySelector(targetId);
-                    
+
                     if (targetSection) {
                         targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 };
-                
+
                 eventManager.add(dot, 'click', clickHandler);
             });
 
-            const scrollHandler = debounce(() => this.updateActiveNav(), 100);
-            eventManager.add(window, 'scroll', scrollHandler, { passive: true });
+            // ✅ PERF: une mise à jour par frame, sans lecture de layout
+            const onScroll = () => {
+                if (!this.ticking) {
+                    this.ticking = true;
+                    requestAnimationFrame(() => {
+                        this.ticking = false;
+                        this.updateActiveNav();
+                    });
+                }
+            };
+            eventManager.add(window, 'scroll', onScroll, { passive: true });
+            eventManager.add(window, 'resize', () => this.computeOffsets(), { passive: true });
+            eventManager.add(window, 'load', () => this.computeOffsets());
         },
 
         updateActiveNav() {
             const scrollY = window.scrollY + 150;
-            
-            this.sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                const sectionId = section.getAttribute('id');
-                
-                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                    this.navDots.forEach(dot => {
-                        dot.classList.remove('active');
-                        if (dot.getAttribute('href') === `#${sectionId}`) {
-                            dot.classList.add('active');
-                        }
-                    });
+
+            for (const section of this.offsets) {
+                if (scrollY > section.top && scrollY <= section.top + section.height) {
+                    if (this.activeId !== section.id) {
+                        this.activeId = section.id;
+                        this.navDots.forEach(dot => {
+                            dot.classList.toggle('active', dot.getAttribute('href') === `#${section.id}`);
+                        });
+                    }
+                    break;
                 }
-            });
+            }
         }
     };
 
@@ -602,19 +645,33 @@
     // ============================================
     const MorphCardGlow = {
         init() {
+            // ✅ PERF: halo au survol — inutile (et coûteux) sur appareils tactiles
+            if (!matchMedia('(hover: hover)').matches) return;
+
             const cards = document.querySelectorAll('.morph-card');
-            
+
             cards.forEach(card => {
+                let rafId = null;
+                let lastX = 0;
+                let lastY = 0;
+
                 const mouseMoveHandler = (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = ((e.clientX - rect.left) / rect.width) * 100;
-                    const y = ((e.clientY - rect.top) / rect.height) * 100;
-                    
-                    card.style.setProperty('--x', x + '%');
-                    card.style.setProperty('--y', y + '%');
+                    lastX = e.clientX;
+                    lastY = e.clientY;
+
+                    // ✅ PERF: une seule écriture de style par frame (throttle rAF)
+                    if (rafId !== null) return;
+                    rafId = requestAnimationFrame(() => {
+                        rafId = null;
+                        const rect = card.getBoundingClientRect();
+                        const x = ((lastX - rect.left) / rect.width) * 100;
+                        const y = ((lastY - rect.top) / rect.height) * 100;
+                        card.style.setProperty('--x', x + '%');
+                        card.style.setProperty('--y', y + '%');
+                    });
                 };
-                
-                eventManager.add(card, 'mousemove', mouseMoveHandler);
+
+                eventManager.add(card, 'mousemove', mouseMoveHandler, { passive: true });
             });
         }
     };
