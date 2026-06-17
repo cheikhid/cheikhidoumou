@@ -286,6 +286,12 @@ body {
     display: none;
 }
 
+/* ✅ PERF: stopper le shimmer une fois l'image chargée (évite des boucles infinies) */
+.lazy-image-wrapper:has(.loaded)::before {
+    animation: none;
+    opacity: 0;
+}
+
 @keyframes shimmer {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
@@ -314,6 +320,8 @@ body {
 .cursor-dot,
 .cursor-outline {
     position: fixed;
+    top: 0;
+    left: 0;
     pointer-events: none;
     z-index: var(--z-max);
     mix-blend-mode: difference;
@@ -341,7 +349,11 @@ body {
         border: 2px solid var(--gold);
         border-radius: 50%;
         transform: translate(-50%, -50%);
-        transition: all 0.15s var(--ease);
+        /* ✅ PERF: ne pas transitionner transform (position pilotée en JS via transform) */
+        transition: width 0.15s var(--ease),
+                    height 0.15s var(--ease),
+                    border-color 0.15s var(--ease),
+                    opacity 0.1s var(--ease);
     }
     
     body.cursor-hover .cursor-dot {
@@ -381,7 +393,6 @@ body {
     background: var(--gold);
     border-radius: 50%;
     opacity: 0.4;
-    will-change: transform;
 }
 
 /* ==========================================
@@ -1167,17 +1178,8 @@ body.mobile-menu-open {
     inset: 0;
     width: 100%;
     height: 100%;
-    animation: morph 8s ease-in-out infinite;
+    /* ✅ PERF: morph du tracé `d:` désactivé (coûteux CPU, non accéléré GPU) */
     filter: drop-shadow(0 8px 24px rgba(189, 159, 103, 0.3));
-}
-
-@keyframes morph {
-    0%, 100% {
-        d: path("M45.4,-57.5C58.1,-45.9,67.5,-31.2,71.3,-15.1C75.1,1,73.3,18.5,65.7,33.2C58.1,47.9,44.7,59.8,29.2,66.1C13.7,72.4,-3.9,73.1,-20.5,68.5C-37.1,63.9,-52.7,54,-62.8,40.2C-72.9,26.4,-77.5,8.7,-75.4,-7.9C-73.3,-24.5,-64.5,-40,-52.1,-51.8C-39.7,-63.6,-23.7,-71.7,-7.2,-73C9.3,-74.3,32.7,-69.1,45.4,-57.5Z");
-    }
-    50% {
-        d: path("M42.8,-56.4C54.7,-46.2,63,-31.5,66.8,-15.6C70.6,0.3,69.9,17.4,63.2,32.3C56.5,47.2,43.8,60,28.8,66.6C13.8,73.2,-3.5,73.6,-19.8,68.4C-36.1,63.2,-51.4,52.4,-61.3,37.8C-71.2,23.2,-75.7,4.8,-73.8,-12.9C-71.9,-30.6,-63.6,-47.6,-50.8,-57.6C-38,-67.6,-21.8,-70.6,-5.9,-72.1C10,-73.6,30.9,-66.6,42.8,-56.4Z");
-    }
 }
 
 .profile-image-wrapper {
@@ -1227,19 +1229,32 @@ body.mobile-menu-open {
 }
 
 .status-dot {
+    position: relative;
     width: 8px;
     height: 8px;
     background: var(--success);
     border-radius: 50%;
-    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ✅ PERF: anneau "ping" via transform/opacity (GPU) au lieu d'un box-shadow animé */
+.status-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(34, 197, 94, 0.7);
+    animation: pulse-dot 2s ease-out infinite;
+    pointer-events: none;
 }
 
 @keyframes pulse-dot {
-    0%, 100% {
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
     }
-    50% {
-        box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+    100% {
+        transform: scale(3);
+        opacity: 0;
     }
 }
 
@@ -1462,21 +1477,21 @@ body.mobile-menu-open {
     background: linear-gradient(135deg,
         rgba(18, 22, 46, 0.8) 0%,
         rgba(18, 22, 46, 0.6) 100%);
-    backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
     position: relative;
     display: grid;
     place-content: center;
     border-radius: var(--radius-lg);
     overflow: hidden;
-    
+
     /* ✅ OPTIMISATION CLÉ : Une seule propriété animée */
     transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    
+
     border: 1px solid rgba(189, 159, 103, 0.2);
     cursor: pointer;
-    
+
     /* GPU acceleration - Uniquement transform */
-    will-change: transform;
     transform: translate3d(0, 0, 0);
     
     margin: 0 auto;
@@ -1499,7 +1514,6 @@ body.mobile-menu-open {
     pointer-events: none;
     
     /* ✅ UNIQUEMENT opacity et transform */
-    will-change: opacity, transform;
     transform: translate3d(0, 0, 0) scale(0.5);
     transition: opacity 0.4s ease, transform 0.6s ease;
 }
@@ -1537,7 +1551,6 @@ body.mobile-menu-open {
     z-index: 2;
     
     /* ✅ Transform et opacity seulement */
-    will-change: opacity, transform;
     transform: translate3d(0, 0, 0) scale(0.9);
     transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
                 transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
@@ -1572,7 +1585,6 @@ body.mobile-menu-open {
     z-index: 3;
     position: relative;
     
-    will-change: transform;
     transform: translate3d(0, 0, 0);
     transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -1613,7 +1625,6 @@ body.mobile-menu-open {
     z-index: 2;
     
     /* ✅ Transform 3D uniquement */
-    will-change: transform;
     transform: translate3d(0, 0, 0) rotateY(0deg);
     transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
     transform-style: preserve-3d;
@@ -1638,7 +1649,6 @@ body.mobile-menu-open {
     transform: translate3d(-10px, 0, 0);
     transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0.2s,
                 transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0.2s;
-    will-change: opacity, transform;
 }
 
 .ui-verse-card:hover .logo-full {
@@ -1673,7 +1683,6 @@ body.mobile-menu-open {
     opacity: 0;
     pointer-events: none;
     
-    will-change: opacity;
     transition: opacity 0.3s ease;
 }
 
@@ -1704,7 +1713,6 @@ body.mobile-menu-open {
     letter-spacing: 2px;
     
     opacity: 0;
-    will-change: opacity, transform;
     transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0.3s,
                 transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0.3s;
 }
@@ -1731,7 +1739,6 @@ body.mobile-menu-open {
     font-weight: 600;
     
     opacity: 0;
-    will-change: opacity;
     transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0.2s;
 }
 
@@ -1885,11 +1892,14 @@ body.mobile-menu-open {
    ========================================== */
 .morph-card {
     background: var(--card-bg);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(189, 159, 103, 0.2);
     border-radius: var(--radius-lg);
     padding: clamp(20px, 4vw, 32px);
-    transition: all 0.8s var(--ease-morph);
+    transition: transform 0.4s var(--ease-morph),
+                border-color 0.4s var(--ease-morph),
+                box-shadow 0.4s var(--ease-morph);
     position: relative;
     overflow: hidden;
 }
@@ -2168,14 +2178,13 @@ body.mobile-menu-open {
     animation: pulse-marker 2s ease-in-out infinite;
 }
 
+/* ✅ PERF: anime uniquement le scale (GPU), box-shadow statique sur .marker-dot */
 @keyframes pulse-marker {
     0%, 100% {
         transform: scale(1);
     }
     50% {
         transform: scale(1.2);
-        box-shadow: 0 0 0 8px rgba(189, 159, 103, 0.1),
-                    0 0 30px rgba(189, 159, 103, 0.6);
     }
 }
 
@@ -2924,6 +2933,35 @@ body.mobile-menu-open {
         width: 60px;
     }
     }
+    /* ✅ PERF: désactiver le flou coûteux (backdrop-filter) sur mobile/tactile.
+       Fond plus opaque pour préserver le rendu sans le coût GPU au scroll. */
+    @media (hover: none), (max-width: 1023px) {
+        .morph-card,
+        .ui-verse-card,
+        .mobile-nav-content {
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            background: rgba(18, 22, 46, 0.92);
+        }
+
+        .ui-verse-card {
+            background: linear-gradient(135deg,
+                rgba(18, 22, 46, 0.95) 0%,
+                rgba(18, 22, 46, 0.92) 100%);
+        }
+
+        .mobile-menu-toggle {
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            background: rgba(18, 22, 46, 0.85);
+        }
+
+        .mobile-nav-backdrop.active {
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+    }
+
     /* Touch device optimizations */
     @media (hover: none) and (pointer: coarse) {
     .morph-card:active {
