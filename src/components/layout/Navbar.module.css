@@ -1,0 +1,136 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  border-bottom: 1px solid transparent;
+  transition: background-color var(--t-normal) var(--ease),
+    border-color var(--t-normal) var(--ease), box-shadow var(--t-normal) var(--ease);
+}
+
+/* Verre dépoli léger uniquement sur grand écran (perf mobile) */
+@media (min-width: 1024px) {
+  .header {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+.header[data-scrolled='true'] {
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  border-bottom-color: var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+
+.inner {
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+/* Marque */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  background: var(--gradient-accent);
+  color: var(--accent-contrast);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: var(--shadow-sm);
+}
+.brandText {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+.brandText strong {
+  color: var(--text);
+  font-weight: 700;
+  margin-left: 2px;
+}
+
+/* Liens desktop */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+.link {
+  position: relative;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: var(--space-2) 0;
+  transition: color var(--t-fast) var(--ease);
+}
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background: var(--gradient-accent);
+  border-radius: var(--radius-full);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--t-normal) var(--ease-out);
+}
+.link:hover {
+  color: var(--text);
+}
+.link.active {
+  color: var(--accent);
+}
+.link.active::after,
+.link:hover::after {
+  transform: scaleX(1);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* Hamburger */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.burger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  margin-inline: auto;
+  background: var(--text);
+  border-radius: 2px;
+  transition: background-color var(--t-normal) var(--ease);
+}
+
+@media (max-width: 860px) {
+  .nav {
+    display: none;
+  }
+  .burger {
+    display: flex;
+  }
+}

@@ -1,0 +1,16 @@
+.track {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: var(--z-max);
+  pointer-events: none;
+  background: transparent;
+}
+
+.bar {
+  height: 100%;
+  background: var(--gradient-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}

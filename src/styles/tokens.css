@@ -1,0 +1,141 @@
+/* ============================================================
+   DESIGN TOKENS — Portfolio Cheikh Idoumou
+   Identité « or & sombre raffinée », thème jour/nuit.
+   Les composants n'utilisent QUE des tokens sémantiques.
+   ============================================================ */
+
+:root {
+  /* Typographie */
+  --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Space Grotesk Variable', var(--font-sans);
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+
+  /* Échelle typographique fluide */
+  --text-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.82rem);
+  --text-sm: clamp(0.875rem, 0.84rem + 0.18vw, 0.95rem);
+  --text-base: clamp(1rem, 0.96rem + 0.2vw, 1.1rem);
+  --text-lg: clamp(1.125rem, 1.06rem + 0.4vw, 1.3rem);
+  --text-xl: clamp(1.35rem, 1.2rem + 0.7vw, 1.7rem);
+  --text-2xl: clamp(1.7rem, 1.4rem + 1.4vw, 2.4rem);
+  --text-3xl: clamp(2.2rem, 1.7rem + 2.4vw, 3.4rem);
+  --text-4xl: clamp(2.8rem, 2rem + 3.8vw, 4.8rem);
+
+  /* Espacements */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  /* Rayons */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 999px;
+
+  /* Mise en page */
+  --container: 1200px;
+  --container-wide: 1380px;
+  --header-h: 72px;
+
+  /* Transitions / easings */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-fast: 0.18s;
+  --t-normal: 0.3s;
+  --t-slow: 0.5s;
+  --t-theme: 0.4s;
+
+  /* Z-index */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-header: 100;
+  --z-overlay: 1000;
+  --z-modal: 2000;
+  --z-max: 9999;
+
+  /* Or — teinte de marque (constante entre thèmes, nuancée par thème ci-dessous) */
+  --gold-hue: 38;
+}
+
+/* ============================================================
+   THÈME SOMBRE (défaut)
+   ============================================================ */
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0a0e27;
+  --bg-elevated: #0d1230;
+  --surface: #121734;
+  --surface-2: #182044;
+  --surface-hover: #1c2550;
+
+  --text: #f4f6fb;
+  --text-muted: #aab6cd;
+  --text-faint: #7a87a3;
+
+  --accent: #cba968;
+  --accent-strong: #ddc088;
+  --accent-soft: rgba(203, 169, 104, 0.14);
+  --accent-contrast: #0a0e27;
+
+  --border: rgba(203, 169, 104, 0.18);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(203, 169, 104, 0.42);
+
+  --success: #34d399;
+  --ring: rgba(203, 169, 104, 0.6);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.36);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
+  --shadow-accent: 0 16px 40px rgba(203, 169, 104, 0.22);
+
+  --gradient-accent: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  --hero-glow: radial-gradient(60% 60% at 70% 30%, rgba(203, 169, 104, 0.16), transparent 70%);
+}
+
+/* ============================================================
+   THÈME CLAIR
+   ============================================================ */
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f6f3ec;
+  --bg-elevated: #fbf9f4;
+  --surface: #ffffff;
+  --surface-2: #f1ece1;
+  --surface-hover: #ece4d6;
+
+  --text: #181d33;
+  --text-muted: #54607a;
+  --text-faint: #8b94a8;
+
+  --accent: #9a7d4a;
+  --accent-strong: #826638;
+  --accent-soft: rgba(154, 125, 74, 0.12);
+  --accent-contrast: #ffffff;
+
+  --border: rgba(154, 125, 74, 0.24);
+  --border-subtle: rgba(24, 29, 51, 0.1);
+  --border-strong: rgba(154, 125, 74, 0.5);
+
+  --success: #0f9d6b;
+  --ring: rgba(154, 125, 74, 0.55);
+
+  --shadow-sm: 0 2px 8px rgba(60, 50, 30, 0.08);
+  --shadow-md: 0 10px 28px rgba(60, 50, 30, 0.12);
+  --shadow-lg: 0 24px 56px rgba(60, 50, 30, 0.16);
+  --shadow-accent: 0 16px 40px rgba(154, 125, 74, 0.2);
+
+  --gradient-accent: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  --hero-glow: radial-gradient(60% 60% at 70% 30%, rgba(154, 125, 74, 0.14), transparent 70%);
+}
