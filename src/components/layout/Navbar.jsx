@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import ThemeToggle from '../../theme/ThemeToggle.jsx'
 import MobileMenu from './MobileMenu.jsx'
 import styles from './Navbar.module.css'
@@ -14,6 +14,12 @@ export const navLinks = [
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const { pathname } = useLocation()
+
+  // Ferme le menu automatiquement à chaque changement de route
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -48,11 +54,12 @@ export default function Navbar() {
         <div className={styles.actions}>
           <ThemeToggle />
           <button
-            className={styles.burger}
-            aria-label="Ouvrir le menu"
+            className={`${styles.burger} ${open ? styles.burgerOpen : ''}`}
+            aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            onClick={() => setOpen(true)}
+            type="button"
+            onClick={() => setOpen((v) => !v)}
           >
             <span />
             <span />
