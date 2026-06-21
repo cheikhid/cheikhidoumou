@@ -1,0 +1,33 @@
+.header {
+  position: relative;
+  overflow: hidden;
+  padding-top: clamp(var(--space-7), 9vw, var(--space-9));
+  padding-bottom: var(--space-6);
+}
+.glow {
+  position: absolute;
+  inset: 0;
+  background: var(--hero-glow);
+  pointer-events: none;
+  z-index: -1;
+}
+.eyebrow {
+  display: inline-block;
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: var(--text-xs);
+  margin-bottom: var(--space-3);
+}
+.title {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+}
+.lead {
+  margin-top: var(--space-4);
+  color: var(--text-muted);
+  font-size: var(--text-lg);
+  max-width: 62ch;
+}

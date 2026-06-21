@@ -1,0 +1,189 @@
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: calc(100svh - var(--header-h));
+  padding-block: var(--space-8);
+  overflow: hidden;
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  background: var(--hero-glow);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-7);
+  align-items: center;
+  width: 100%;
+}
+
+@media (min-width: 900px) {
+  .inner {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--space-8);
+  }
+}
+
+/* ---- Texte ---- */
+.greeting {
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-3);
+}
+
+.name {
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: var(--space-4);
+}
+
+.role {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: var(--space-5);
+  min-height: 1.6em;
+}
+.rolePrefix {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.roleText {
+  color: var(--accent);
+}
+.caret {
+  width: 2px;
+  height: 1.1em;
+  margin-left: 4px;
+  background: var(--accent);
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.bio {
+  color: var(--text-muted);
+  font-size: var(--text-lg);
+  max-width: 54ch;
+  margin-bottom: var(--space-6);
+}
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-7);
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-7);
+}
+.stats li {
+  display: flex;
+  flex-direction: column;
+}
+.statValue {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+.statLabel {
+  margin-top: var(--space-2);
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ---- Visuel ---- */
+.visual {
+  position: relative;
+  justify-self: center;
+}
+
+.photoRing {
+  position: relative;
+  width: min(360px, 78vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 10px;
+  background: conic-gradient(
+    from 0deg,
+    var(--accent),
+    transparent 25%,
+    var(--accent-strong) 50%,
+    transparent 75%,
+    var(--accent)
+  );
+  animation: spin 18s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--bg);
+  background: var(--surface);
+  /* annule la rotation du parent pour garder la photo droite */
+  animation: spin 18s linear infinite reverse;
+}
+
+.badge {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.5em 1.1em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text);
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+}
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 70%, transparent);
+  animation: ping 2s ease-out infinite;
+}
+@keyframes ping {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 60%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}

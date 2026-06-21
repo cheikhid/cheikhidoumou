@@ -1,0 +1,46 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-full);
+}
+
+.track {
+  position: relative;
+  width: 56px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  transition: background-color var(--t-normal) var(--ease),
+    border-color var(--t-normal) var(--ease);
+}
+
+.toggle:hover .track {
+  border-color: var(--accent);
+}
+
+.thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--gradient-accent);
+  color: var(--accent-contrast);
+  display: grid;
+  place-items: center;
+  transform: translateX(0);
+  transition: transform var(--t-normal) var(--ease-spring);
+  box-shadow: var(--shadow-sm);
+}
+
+/* En sombre, le pouce est à droite (lune) ; en clair, à gauche (soleil) */
+.thumb[data-dark='true'] {
+  transform: translateX(26px);
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+}

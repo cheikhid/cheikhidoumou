@@ -1,0 +1,39 @@
+.band {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: clamp(var(--space-6), 6vw, var(--space-9)) var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  background: var(--hero-glow);
+  pointer-events: none;
+}
+
+.title {
+  position: relative;
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+}
+
+.text {
+  position: relative;
+  color: var(--text-muted);
+  max-width: 52ch;
+  margin: 0 auto var(--space-6);
+}
+
+.cta {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+}

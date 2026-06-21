@@ -1,0 +1,96 @@
+.intro {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .intro {
+    grid-template-columns: 1.5fr 1fr;
+    gap: var(--space-8);
+  }
+}
+
+.introText p {
+  color: var(--text-muted);
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-4);
+}
+
+.values {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-5) 0 var(--space-6);
+}
+.values li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-weight: 500;
+}
+.check {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.photoWrap {
+  justify-self: center;
+}
+.photo {
+  width: min(320px, 80vw);
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}
+
+.skillGroups {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 600px) {
+  .skillGroups {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1000px) {
+  .skillGroups {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.group {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+.group h3 {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: var(--space-4);
+}
+.groupTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.timelines {
+  display: grid;
+  gap: var(--space-8);
+}
+@media (min-width: 900px) {
+  .timelines {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-7);
+  }
+}
