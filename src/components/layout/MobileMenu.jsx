@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { NavLink } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import ThemeToggle from '../../theme/ThemeToggle.jsx'
@@ -21,10 +22,12 @@ export default function MobileMenu({ open, onClose, links }) {
         return
       }
       if (e.key === 'Tab') {
-        const f = panelRef.current?.querySelectorAll('a[href], button')
-        if (!f || f.length === 0) return
-        const first = f[0]
-        const last = f[f.length - 1]
+        const focusable = panelRef.current?.querySelectorAll(
+          'a[href], button, [tabindex]:not([tabindex="-1"])'
+        )
+        if (!focusable || focusable.length === 0) return
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
         if (e.shiftKey && document.activeElement === first) {
           e.preventDefault()
           last.focus()
@@ -35,7 +38,7 @@ export default function MobileMenu({ open, onClose, links }) {
       }
     }
     document.addEventListener('keydown', onKey)
-    const t = setTimeout(() => panelRef.current?.querySelector('a[href], button')?.focus(), 60)
+    const t = setTimeout(() => panelRef.current?.querySelector('button')?.focus(), 80)
 
     return () => {
       document.body.style.overflow = prevOverflow
@@ -44,20 +47,23 @@ export default function MobileMenu({ open, onClose, links }) {
     }
   }, [open, onClose])
 
-  const dur = reduce ? 0 : 0.4
+  const dur = reduce ? 0 : 0.38
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {open && (
         <>
+          {/* Fond obscurcissant — clic ferme le menu */}
           <motion.div
             className={styles.backdrop}
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: dur }}
+            transition={{ duration: dur * 0.7 }}
           />
+
+          {/* Panneau latéral */}
           <motion.aside
             id="mobile-menu"
             ref={panelRef}
@@ -65,32 +71,54 @@ export default function MobileMenu({ open, onClose, links }) {
             role="dialog"
             aria-modal="true"
             aria-label="Menu de navigation"
-            initial={{ x: reduce ? 0 : '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: reduce ? 0 : '100%' }}
+            initial={{ x: reduce ? 0 : '100%', opacity: reduce ? 0 : 1 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: reduce ? 0 : '100%', opacity: reduce ? 0 : 1 }}
             transition={{ duration: dur, ease: [0.16, 1, 0.3, 1] }}
           >
+            {/* En-tête du panneau */}
             <div className={styles.head}>
-              <span className={styles.title}>Navigation</span>
-              <button className={styles.close} onClick={onClose} aria-label="Fermer le menu">
-                ×
+              <div className={styles.brand}>
+                <span className={styles.mark}>CI</span>
+                <span className={styles.brandLabel}>Navigation</span>
+              </div>
+              <button
+                type="button"
+                className={styles.close}
+                onClick={onClose}
+                aria-label="Fermer le menu"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
               </button>
             </div>
 
+            {/* Liens de navigation */}
             <nav className={styles.links} aria-label="Navigation mobile">
-              {links.map((l) => (
-                <NavLink
+              {links.map((l, i) => (
+                <motion.div
                   key={l.to}
-                  to={l.to}
-                  end={l.end}
-                  onClick={onClose}
-                  className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}
+                  initial={reduce ? {} : { opacity: 0, x: 24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.06 + 0.1, duration: 0.3 }}
                 >
-                  {l.label}
-                </NavLink>
+                  <NavLink
+                    to={l.to}
+                    end={l.end}
+                    onClick={onClose}
+                    className={({ isActive }) =>
+                      `${styles.link} ${isActive ? styles.active : ''}`
+                    }
+                  >
+                    <span className={styles.linkNum}>0{i + 1}</span>
+                    {l.label}
+                  </NavLink>
+                </motion.div>
               ))}
             </nav>
 
+            {/* Pied : toggle thème + réseaux */}
             <div className={styles.footer}>
               <ThemeToggle />
               <div className={styles.social}>
@@ -101,6 +129,7 @@ export default function MobileMenu({ open, onClose, links }) {
                     aria-label={s.label}
                     target={s.external ? '_blank' : undefined}
                     rel={s.external ? 'noopener noreferrer' : undefined}
+                    className={styles.socialLink}
                   >
                     <Icon name={s.icon} />
                   </a>
@@ -110,6 +139,7 @@ export default function MobileMenu({ open, onClose, links }) {
           </motion.aside>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }

@@ -48,11 +48,12 @@ export default function Navbar() {
         <div className={styles.actions}>
           <ThemeToggle />
           <button
-            className={styles.burger}
-            aria-label="Ouvrir le menu"
+            className={`${styles.burger} ${open ? styles.burgerOpen : ''}`}
+            aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            onClick={() => setOpen(true)}
+            type="button"
+            onClick={() => setOpen((v) => !v)}
           >
             <span />
             <span />
