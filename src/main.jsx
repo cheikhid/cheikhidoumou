@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async'
 
 import '@fontsource-variable/inter'
 import '@fontsource-variable/space-grotesk'
+import '@fontsource-variable/jetbrains-mono'
 import './styles/tokens.css'
 import './styles/globals.css'
 
