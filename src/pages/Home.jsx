@@ -4,6 +4,7 @@ import AboutTeaser from '../sections/AboutTeaser.jsx'
 import Skills from '../sections/Skills.jsx'
 import Services from '../sections/Services.jsx'
 import FeaturedProjects from '../sections/FeaturedProjects.jsx'
+import Testimonials from '../sections/Testimonials.jsx'
 import ContactSection from '../sections/ContactSection.jsx'
 
 const personJsonLd = {
@@ -35,6 +36,7 @@ export default function Home() {
       <Skills />
       <Services />
       <FeaturedProjects />
+      <Testimonials />
       <ContactSection />
     </>
   )
